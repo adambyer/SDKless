@@ -1,3 +1,5 @@
+#SDKless#
+
 SDKless is a specification for describing the usage requirements of APIs. The goal of SDKless is to allow developers to use one code library to consume all APIs, rather than incorporating a separate SDK for each API. This will help speed up development time, allow for cleaner code, make troubleshooting easier, and reduce the number of code files required by your application.
 
 SDKless is most helpful when your application consumes multiple similar APIs. For example, let's say your application allows users to connect to any social networks they use so they can view all their activity in one place. Normally you would incorporate into your fileset, the SDK for the API of each social network you want to support. Then your code would call the SDK-specific method for each connected social network, and then reformat the API-specific output into something your application can use. Something kinda like this...
