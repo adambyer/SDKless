@@ -1,0 +1,125 @@
+{
+	"endpoints": {
+		"pull_list_count": {
+			"maps_to": "get_list",
+			"parameter_maps": {
+				"list_id": "LIST-ID"
+			},
+			"output": {
+				"data" : {
+					"format": "scalar",
+					"location": ["contact_count"]
+				}
+			}
+		},
+		"pull_list_id_by_name": {
+			"maps_to": "get_lists",
+			"parameter_maps": {
+				"list_name": "LIST-NAME"
+			},
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "id",
+							"name": "name"
+						}
+					}
+				},
+				"filter": [
+					{
+						"search_key": "name",
+						"search_value": "*|LIST-NAME|*",
+						"return_key": "id"
+					}
+				]
+			}
+		},
+		"pull_import_lists": {
+			"maps_to": "get_lists",
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "id",
+							"name": "name"
+						}
+					}
+				}
+			}
+		},
+		"pull_export_lists": {
+			"maps_to": "get_lists",
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "id",
+							"name": "name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_contacts": {
+			"maps_to": "get_list_contacts",
+			"parameters": {
+				"limit": 500
+			},
+			"output": {
+				"data": {
+					"location": ["results"],
+					"items": {
+						"locations": {
+							"id": "id",
+							"email_address": ["email_addresses", 0, "email_address"],
+							"first_name": "first_name",
+							"last_name": "last_name"
+						}
+					}
+				}
+			}
+		},
+		"pull_contacts_by_email": {
+			"maps_to": "get_contacts_by_email",
+			"parameter_maps": {
+				"email_address": "email"
+			},
+			"output": {
+				"data": {
+					"location": ["results"]
+				}
+			}
+		},
+		"pull_contact_is_unsubscribed": {
+			"maps_to": "get_contacts_by_email",
+			"parameter_maps": {
+				"email_address": "email"
+			},
+			"output": {
+				"data": {
+					"location": ["results"]
+				},
+				"filter": [
+					{
+						"search_key": "status",
+						"search_value": "ACTIVE",
+						"return_type": "!boolean"
+					}
+				]
+			}
+		},
+		"push_list": {
+			"maps_to": "create_list",
+			"parameter_maps": {
+				"list_name": "name"
+			},
+			"output": {
+				"data": {
+					"format": "scalar",
+					"location": ["id"]
+				}
+			}
+		}
+	}
+}

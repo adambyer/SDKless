@@ -1,0 +1,115 @@
+{
+	"base_uri": "https://actionnetwork.org/api/v1",
+	"common_endpoint_settings": {
+		"all": {
+			"output_format": "json",
+			"curl_options": {
+				"CONNECTTIMEOUT": 10,
+				"TIMEOUT": 60,
+				"RETURNTRANSFER": true,
+				"SSL_VERIFYPEER": false,
+				"SSL_VERIFYHOST": false,
+				"FOLLOWLOCATION": true,
+				"HTTPHEADER": [
+					"Content-type: application/hal+json",
+					"api-key: *|API-KEY|*"
+				]
+			},
+			"output": {
+				"error": {
+					"location": ["error"]
+				}
+			}
+		},
+		"post": {
+			"curl_options": {
+				"HTTPHEADER": [
+					"Content-type: application/json",
+					"api-key: *|API-KEY|*"
+				]
+			}
+		}
+	},
+	"endpoints": {
+		"get_events": {
+			"uri": "/events",
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "per_page"
+					},
+					"page_number": {
+						"name": "page",
+						"base": 1
+					}
+				}
+			}
+		},
+		"get_forms": {
+			"uri": "/forms",
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "per_page"
+					},
+					"page_number": {
+						"name": "page",
+						"base": 1
+					}
+				}
+			}
+		},
+		"get_event_attendance": {
+			"uri": "/events/*|EVENT-ID|*/attendance"
+		},
+		"get_form_submissions": {
+			"uri": "/forms/*|FORM-ID|*/submissions"
+		},
+		"get_people": {
+			"uri": "/people",
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "per_page"
+					},
+					"page_number": {
+						"name": "page",
+						"base": 1
+					}
+				}
+			}
+		},
+		"get_person": {
+			"uri": "/people/*|PERSON-ID|*"
+		},
+		"create_form": {
+			"uri": "/forms",
+			"method": "post",
+			"input_format": "json",
+			"parameters": {
+				"originating_system": null,
+				"summary": null
+			}
+		},
+		"create_form_submission": {
+			"uri": "/forms/*|FORM-ID|*/submissions",
+			"method": "post",
+			"input_format": "json",
+			"parameters": {
+				"originating_system" : null,
+				"person": null
+			},
+			"parameter_format": {
+				"person": {
+					"family_name" : null,
+			    "given_name" : null,
+			    "postal_addresses" : [{"postal_code": null}],
+			    "email_addresses" : [{"address": null}]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,99 @@
+{
+	"base_uri": "https://api.constantcontact.com",
+	"authentication": {
+		"steps": [
+			{
+				"type": "redirect",
+				"uri": "https://oauth2.constantcontact.com/oauth2/oauth/siteowner/authorize",
+				"parameters": {
+					"response_type": "code",
+		      "client_id": "*|CLIENT-ID|*",
+		      "redirect_uri": "*|REDIRECT-URI|*"
+				}
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "token"
+			}
+		]
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"input_format": "json",
+			"output_format": "json",
+			"curl_options": {
+				"RETURNTRANSFER": true,
+				"HTTPHEADER": [
+					"Authorization: Bearer *|ACCESS-TOKEN|*",
+					"Accept: application/json",
+					"Content-type: application/json"
+				]
+			}
+		},
+		"get": {
+			"parameters": {
+				"api_key": "*|CLIENT-ID|*"
+			}
+		}
+	},
+	"endpoints": {
+		"token": {
+			"uri": "https://oauth2.constantcontact.com/oauth2/oauth/token",
+			"method": "post",
+			"parameters": {
+				"grant_type": "authorization_code",
+        "client_id": "*|CLIENT-ID|*",
+        "client_secret": "*|CLIENT-SECRET|*",
+        "code": null,
+        "redirect_uri": "*|REDIRECT-URI|*"
+			},
+			"curl_options": {
+				"FOLLOWLOCATION": true,
+				"CONNECTTIMEOUT": 10,
+				"TIMEOUT": 60,
+				"SSL_VERIFYHOST": false,
+				"SSL_VERIFYPEER": false
+			}
+		},
+		"get_lists": {
+			"uri": "/v2/lists",
+			"method": "get",
+			"parameters": {
+				"name": null
+			}
+		},
+		"get_list": {
+			"uri": "/v2/lists/*|LIST-ID|*",
+			"method": "get"
+		},
+		"get_list_contacts": {
+			"uri": "/v2/lists/*|LIST-ID|*/contacts",
+			"method": "get",
+			"parameters": {
+				"limit": null
+			},
+			"paging": {
+				"type": "cursor",
+				"parameters": {
+					"cursor": {
+						"location": ["meta","pagination","next_link"]
+					}
+				}
+			}
+		},
+		"get_contacts_by_email": {
+			"uri": "/v2/contacts",
+			"parameters": {
+				"email": null
+			}
+		},
+		"create_list": {
+			"uri": "/v2/lists?api_key=*|CLIENT-ID|*",
+			"method": "post",
+			"parameters": {
+				"name": null,
+				"status": "ACTIVE"
+			}
+		}
+	}
+}

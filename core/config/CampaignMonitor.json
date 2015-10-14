@@ -1,0 +1,140 @@
+{
+	"base_uri": "https://api.createsend.com/api/v3.1/",
+	"authentication": {
+		"steps": [
+			{
+				"type": "redirect",
+				"uri": "https://api.createsend.com/oauth",
+				"parameters": {
+					"type": "web_server",
+					"scope": "ManageLists,ImportSubscribers",
+		      "client_id": "*|API-CLIENT-ID|*",
+		      "redirect_uri": "*|REDIRECT-URI|*"
+				}
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "access_token"
+			}
+		]
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"output_format": "json",
+			"curl_options": {
+				"RETURNTRANSFER": true,
+				"CONNECTTIMEOUT": 10,
+				"TIMEOUT": 60,
+				"FOLLOWLOCATION": true,
+				"SSL_VERIFYHOST": false,
+				"SSL_VERIFYPEER": false,
+				"HTTPHEADER": [
+					"Content-type: application/x-www-form-urlencoded",
+					"Accept: application/json",
+					"Authorization: Bearer *|ACCESS-TOKEN|*"
+				]
+			}
+		}
+	},
+	"endpoints": {
+		"access_token": {
+			"uri": "https://api.createsend.com/oauth/token",
+			"method": "post",
+			"input_format": "query_string",
+			"bypass_prerequisites": true,
+			"parameters": {
+				"grant_type": "authorization_code",
+        "client_id": "*|API-CLIENT-ID|*",
+        "client_secret": "*|API-CLIENT-SECRET|*",
+        "code": null,
+        "redirect_uri": "*|REDIRECT-URI|*"
+			}
+		},
+		"refresh_token": {
+			"uri": "https://api.createsend.com/oauth/token",
+			"method": "post",
+			"input_format": "query_string",
+			"bypass_prerequisites": true,
+			"parameters": {
+				"grant_type": "refresh_token",
+				"refresh_token": "*|REFRESH-TOKEN|*"
+			}
+		},
+		"clients": {
+			"uri": "clients.json",
+			"method": "get"
+		},
+		"list_stats": {
+			"uri": "lists/*|LIST-ID|*/stats.json",
+			"method": "get"
+		},
+		"client_lists": {
+			"uri": "clients/*|CLIENT-ID|*/lists.json",
+			"method": "get"
+		},
+		"list_active_subscribers": {
+			"uri": "lists/*|LIST-ID|*/active.json",
+			"method": "get",
+			"parameters": {
+				"orderfield": "name",
+				"orderdirection": "asc"
+			},
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "pagesize"
+					},
+					"page_number": {
+						"name": "page",
+						"base": 1
+					}
+				}
+			}
+		},
+		"client_suppression_list": {
+			"uri": "clients/*|CLIENT-ID|*/suppressionlist.json",
+			"method": "get",
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "pagesize"
+					},
+					"page_number": {
+						"name": "page",
+						"base": 1
+					}
+				}
+			}
+		},
+		"create_list": {
+			"uri": "lists/*|CLIENT-ID|*.json",
+			"method": "post",
+			"input_format": "json",
+			"parameters": {
+				"Title": null,
+		    "UnsubscribePage": null,
+		    "UnsubscribeSetting": "AllClientLists",
+		    "ConfirmedOptIn": false,
+		    "ConfirmationSuccessPage": null
+			}
+		},
+		"subscribers_import": {
+			"uri": "subscribers/*|LIST-ID|*/import.json",
+			"method": "post",
+			"input_format": "json",
+			"parameters": {
+				"Subscribers": null
+			},
+			"parameter_format": {
+				"Subscribers": [
+					{
+            "EmailAddress": null,
+            "Name": null
+        	}
+				]
+			}
+		}
+	}
+}

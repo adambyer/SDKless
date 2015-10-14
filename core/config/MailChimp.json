@@ -1,0 +1,171 @@
+{
+	"base_uri": "https://*|DATA-CENTER|*.api.mailchimp.com/2.0/",
+	"authentication": {
+		"steps": [
+			{
+				"type": "redirect",
+				"uri": "https://login.mailchimp.com/oauth2/authorize",
+				"parameters": {
+					"response_type": "code",
+		      "client_id": "*|CLIENT-ID|*",
+		      "redirect_uri": "*|REDIRECT-URI|*"
+				}
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "token"
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "metadata"
+			}
+		]
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"method": "post",
+			"input_format": "query_string",
+			"output_format": "json",
+			"http_code_check": "2",
+			"parameters": {
+				"apikey": "*|API-KEY|*"
+			},
+			"curl_options": {
+				"RETURNTRANSFER": true,
+				"USERAGENT": "MCAPI/1.3",
+				"HTTPHEADER": [
+					"Content-type: application/x-www-form-urlencoded"
+				]
+			},
+			"output": {
+				"error": {
+					"location": ["error"]
+				}
+			}
+		},
+		"get": {
+			"parameters": {
+				"ids": "all"
+			}
+		}
+	},
+	"endpoints": {
+		"token": {
+			"uri": "https://login.mailchimp.com/oauth2/token",
+			"parameters": {
+				"grant_type": "authorization_code",
+        "client_id": "*|CLIENT-ID|*",
+        "client_secret": "*|CLIENT-SECRET|*",
+        "code": null,
+        "redirect_uri": "*|REDIRECT-URI|*"
+			},
+			"curl_options": {
+				"FOLLOWLOCATION": true,
+				"CONNECTTIMEOUT": 10,
+				"TIMEOUT": 60,
+				"HTTPHEADER": [
+					"Accept: application/json"
+				],
+				"SSL_VERIFYHOST": false,
+				"SSL_VERIFYPEER": false
+			}
+		},
+		"metadata": {
+			"uri": "https://login.mailchimp.com/oauth2/metadata",
+			"method": "get",
+			"merge_maps": {
+				"access_token": "ACCESS-TOKEN"
+			},
+			"curl_options": {
+				"FOLLOWLOCATION": true,
+				"CONNECTTIMEOUT": 10,
+				"TIMEOUT": 60,
+				"HTTPHEADER": [
+					"Accept: application/json"
+				],
+				"SSL_VERIFYHOST": false,
+				"SSL_VERIFYPEER": false,
+				"HTTPHEADER": [
+					"Authorization: OAuth *|ACCESS-TOKEN|*"
+				]
+			}
+		},
+		"lists_list": {
+			"uri": "lists/list.json",
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "limit"
+					},
+					"page_number": {
+						"name": "start",
+						"base": 0
+					}
+				}
+			}
+		},
+		"search_members": {
+			"uri": "helper/search-members.json",
+			"parameters": {
+				"query": null
+			}
+		},
+		"export_list": {
+			"uri": "https://*|DATA-CENTER|*.api.mailchimp.com/export/1.0/list/",
+			"output_format": "json_text_lines",
+			"parameters": {
+				"id": null
+			}
+		},
+		"list_segments": {
+			"uri": "lists/segments.json",
+			"parameters": {
+				"id": null
+			}
+		},
+		"list_static_segment_add": {
+			"uri": "lists/static-segment-add.json",
+			"parameters": {
+				"id": null,
+				"name": null
+			}
+		},
+		"list_batch_subscribe": {
+			"uri": "lists/batch-subscribe.json",
+			"parameters": {
+				"id": null,
+				"batch": null
+			},
+			"parameter_format": {
+				"batch": [
+					{
+						"email": {
+							"email": null
+						},
+						"email_type": null,
+						"merge_vars": {
+							"FNAME": null,
+							"LNAME": null
+						}
+					}
+				]
+			}
+		},
+		"list_static_segment_members_add": {
+			"uri": "lists/static-segment-members-add.json",
+			"parameters": {
+				"id": null,
+				"seg_id": null,
+				"batch": null
+			},
+			"parameter_format": {
+				"batch": [
+					{
+						"email": null
+					}
+				]
+			}
+		}
+	}
+}

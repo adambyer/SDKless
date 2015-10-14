@@ -1,0 +1,59 @@
+{
+	"base_uri": "https://*|DOMAIN|*/api/",
+	"endpoint_prerequisites": [
+		{
+			"protocol": "cookie",
+			"endpoint": "authenticate",
+			"repeat": false
+		}
+	],
+	"common_endpoint_settings": {
+		"all": {
+			"method": "post",
+			"input_format": "query_string",
+			"output_format": "json",
+			"time_limit": 600,
+			"parameters": {
+				"json": true
+			},
+			"curl_options": {
+				"SSL_VERIFYPEER": false,
+				"HEADER": false,
+				"RETURNTRANSFER": true,
+				"CONNECTTIMEOUT": 60,
+				"TIMEOUT": 180
+			}
+		}
+	},
+	"endpoints": {
+		"authenticate": {
+			"uri": "authenticate.sjs",
+			"parameters": {
+				"email": "*|EMAIL|*",
+				"password": "*|PASSWORD|*"
+			},
+			"curl_options": {
+				"CONNECTTIMEOUT": 10,
+				"TIMEOUT": 10
+			},
+			"time_limit": 20
+		},
+		"get_groups": {
+			"uri": "getObjects.sjs",
+			"parameters": {
+				"object": "groups",
+				"orderBy": "Group_Name",
+				"include": "Group_Name,groups_KEY"
+			}
+		},
+		"get_supporters": {
+			"uri": "getLeftJoin.sjs",
+			"parameters": {
+				"object": "supporter(supporter_KEY)supporter_groups",
+				"condition": "supporter_groups.groups_KEY=*|LIST-ID|*",
+				"include": "supporter.First_Name,supporter.Last_Name,supporter.Email,supporter.Zip,supporter.supporter_KEY",
+				"limit": null
+			}
+		}
+	}
+}
