@@ -45,7 +45,7 @@ With SDKless that would look more like this...
     $sdkless = new SDKless($social_network);
     $output = $sdkless->go('get_posts');
     
-The way this works is that each API has a configuration file (or two) which the SDKless library uses to determine what needs to happen in order to get contacts from that API and return them in the desired format.
+The way this works is that each API has a configuration file (or two) which the SDKless library uses to determine what needs to happen in order to get data from that API and return them in the desired format.
 
 Now, granted, the code in the 1st example could just be put into a separate class and called like the 2nd example. But that is not what SDKless does. The SDKless class in the 2nd example (and included in this repository) has no API-specific code in it. No references to any APIs. It simply uses the configuration file for the specified API to know what to do.
 
