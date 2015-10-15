@@ -45,11 +45,11 @@ With SDKless that would look more like this...
     $sdkless = new SDKless($social_network);
     $output = $sdkless->go('get_posts');
     
-The way this works is that each API has a configuration file (or two; see [customizing](#custom-config) later) which the SDKless library uses to determine what needs to happen in order to get contacts from that API and return them in the desired format.
+The way this works is that each API has a configuration file (or two) which the SDKless library uses to determine what needs to happen in order to get contacts from that API and return them in the desired format.
 
 Now, granted, the code in the 1st example could just be put into a separate class and called like the 2nd example. But that is not what SDKless does. The SDKless class in the 2nd example (and included in this repository) has no API-specific code in it. No references to any APIs. It simply uses the configuration file for the specified API to know what to do.
 
-And keep in mind that your project now only has one (or two; see [customizing](#custom-config) later) library files for SDKless, instead of one for each API you need to integrate with. And in many cases, an SDK can be made up of not just one, but several files. With SDKless, all APIs are consumed with the same code, which makes for quicker development, cleaner code, and easier troubleshooting.
+And keep in mind that your project now only has one or two library files for SDKless, instead of one for each API you need to integrate with. And in many cases, an SDK can be made up of not just one, but several files. With SDKless, all APIs are consumed with the same code, which makes for quicker development, cleaner code, and easier troubleshooting.
 
 This repository includes examples, in JSON configuration files, of this specification applied to several APIs. The hope is that these will be expanded upon, and more added, by the community, resulting in a mostly plug-n-play experience when consuming APIs. This repository also includes a PHP implementation of SDKless.
 
