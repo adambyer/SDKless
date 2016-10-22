@@ -65,4 +65,4 @@ The specification supports:
 	 - output data format/location
 	 - Curl options
 
-<b>See full documentation <a href="http://good-plus-geek.github.io/SDKless" target="_blank">here</a></b>
+<b>See full documentation <a href="http://adambyer.github.io/SDKless/" target="_blank">here</a></b>
