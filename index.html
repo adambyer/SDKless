@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SDKless Documentation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="out">
 <h1>SDKless</h1>
 <h2>Content</h2>
 <ul>
@@ -70,7 +84,7 @@
 <p>The way this works is that each API has a configuration file (or two; see <a href="#custom-config">customizing</a> later) which the SDKless library uses to determine what needs to happen in order to get contacts from that API and return them in the desired format.</p>
 <p>Now, granted, the code in the 1st example could just be put into a separate class and called like the 2nd example. But that is not what SDKless does. The SDKless class in the 2nd example (and included in this repository) has no API-specific code in it. No references to any APIs. It simply uses the configuration file for the specified API to know what to do.</p>
 <p>And keep in mind that your project now only has one (or two; see <a href="#custom-config">customizing</a> later) library files for SDKless, instead of one for each API you need to integrate with. And in many cases, an SDK can be made up of not just one, but several files. With SDKless, all APIs are consumed with the same code, which makes for quicker development, cleaner code, and easier troubleshooting.</p>
-<p>This repository includes examples, in JSON configuration files, of this specification applied to several APIs. The hope is that these will be expanded upon, and more added, by the community, resulting in a mostly plug-n-play experience when consuming APIs. This repository also includes a PHP implementation of SDKless.</p>
+<p>This repository includes examples, in JSON configuration files, of this specification applied to several APIs. The hope is that these will be expanded upon, and more added, by the community, resulting in a mostly plug-n-play experience when consuming APIs. This repository also includes PHP and Python/Django demo implementations of SDKless.</p>
 <p>The specification supports:</p>
 <ul>
 <li>Authentication
@@ -95,11 +109,11 @@
 <h3>Configuration Files</h3>
 <p>A configuration file (JSON) contains everything your code needs to consume an API. The included core library expects them to be located in a folder named "config" and named like "ServiceName.json", with "ServiceName" being passed to the constructor. The intention is that this file would be created and maintained by those in the community who are familiar with the particular API, and then developers using SDKless could simply incorporate it to their application and go. See <a href="#custom-config">custom configuration files</a> for how to override these settings. The supported root level elements are...</p>
 <pre><code class="language-javascript">{
-  <span class="hljs-string">"base_uri"</span>: <span class="hljs-string">"https://api.abc.com/v4.2/"</span>,
-  <span class="hljs-string">"authentication"</span>: {...},
-  <span class="hljs-string">"common_endpoint_settings"</span>: {...},
-  <span class="hljs-string">"endpoint_prerequisites"</span>: {...},
-  <span class="hljs-string">"endpoints"</span>: {...},
+    <span class="hljs-string">"base_uri"</span>: <span class="hljs-string">"https://api.abc.com/v4.2/"</span>,
+    <span class="hljs-string">"authentication"</span>: {...},
+    <span class="hljs-string">"common_endpoint_settings"</span>: {...},
+    <span class="hljs-string">"endpoint_prerequisites"</span>: {...},
+    <span class="hljs-string">"endpoints"</span>: {...},
 }
 </code></pre>
 <p><a id="base_uri"></a></p>
@@ -760,3 +774,6 @@ output -&gt; filter</p>
 <li>Adding a required api key to cursor paging uris, when those uris returned by the API do not include them</li>
 <li>Remove id prefixes when then the API returns them in a format like "prefix:id" but requires only the id for other calls</li>
 </ul>
+</div>
+</body>
+</html>
