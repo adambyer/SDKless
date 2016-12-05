@@ -1,0 +1,10 @@
+{
+	"endpoints": {
+		"pull_user_statuses": {
+			"maps_to": "statuses_user_timeline"
+		},
+		"pull_user_followers": {
+			"maps_to": "followers_list"
+		}
+	}
+}

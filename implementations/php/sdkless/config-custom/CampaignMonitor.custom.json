@@ -1,0 +1,168 @@
+{
+	"global": {
+		"parameter_maps": {
+			"refresh_token": "REFRESH-TOKEN"
+		},
+		"set": {
+			"endpoint_prerequisites": [
+				{
+					"endpoint": "refresh_token",
+					"repeat": false,
+					"merge_maps": {
+						"access_token": "ACCESS-TOKEN"
+					}
+				}
+			]
+		}
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"time_limit": 60
+		}
+	},
+	"endpoints": {
+		"pull_clients": {
+			"maps_to": "clients",
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "ClientID",
+							"name": "Name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_count": {
+			"maps_to": "list_stats",
+			"parameter_maps": {
+				"list_id": "LIST-ID"
+			},
+			"output": {
+				"data" : {
+					"location": ["TotalActiveSubscribers"]
+				}
+			}
+		},
+		"pull_list_id_by_name": {
+			"maps_to": "client_lists",
+			"parameter_maps": {
+				"client_id": "CLIENT-ID",
+				"list_name": "LIST-NAME"
+			},
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "ListID",
+							"name": "Name"
+						}
+					}
+				},
+				"filter": [
+					{
+						"search_key": "name",
+						"search_value": "*|LIST-NAME|*",
+						"return_key": "id"
+					}
+				]
+			}
+		},
+		"pull_contact_is_unsubscribed": {
+			"maps_to": "client_suppression_list",
+			"parameter_maps": {
+				"client_id": "CLIENT-ID",
+				"email_address": "EMAIL-ADDRESS"
+			},
+			"output": {
+				"data": {
+					"location": ["Results"],
+					"items": {
+						"locations": {
+							"email_address": "EmailAddress"
+						}
+					}
+				},
+				"filter": [
+					{
+						"search_key": "email_address",
+						"search_value": "*|EMAIL-ADDRESS|*",
+						"return_type": "boolean"
+					}
+				]
+			}
+		},
+		"pull_lists": {
+			"maps_to": "client_lists",
+			"parameter_maps": {
+				"client_id": "CLIENT-ID"
+			},
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "ListID",
+							"name": "Name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_contacts": {
+			"maps_to": "list_active_subscribers",
+			"parameters": {
+				"pagesize": 1000
+			},
+			"parameter_maps": {
+				"list_id": "LIST-ID"
+			},
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["Results"],
+					"items": {
+						"locations": {
+							"email_address": "EmailAddress",
+							"full_name": "Name"
+						}
+					}
+				}
+			}
+		},
+		"pull_suppression_list": {
+			"maps_to": "client_suppression_list",
+			"parameters": {
+				"pagesize": 1000
+			},
+			"parameter_maps": {
+				"client_id": "CLIENT-ID"
+			},
+			"output": {
+				"data": {
+					"location": ["Results"]
+				}
+			}
+		},
+		"push_list": {
+			"maps_to": "create_list",
+			"parameter_maps": {
+				"list_name": "Title",
+				"client_id": "CLIENT-ID"
+			}
+		},
+		"push_list_contacts": {
+			"maps_to": "subscribers_import",
+			"parameter_maps": {
+				"contacts": "Subscribers",
+				"list_id": "LIST-ID"
+			},
+			"array_set_templates": {
+				"Subscribers": {
+					"EmailAddress": "email_address",
+					"Name": "full_name"
+				}
+			}
+		}
+	}
+}

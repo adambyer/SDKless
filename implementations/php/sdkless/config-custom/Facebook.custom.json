@@ -1,0 +1,35 @@
+{
+	"common_endpoint_settings": {
+		"all": {
+			"time_limit": 60
+		}
+	},
+	"endpoints": {
+		"pull_user": {
+			"maps_to": "get_user"
+		},
+		"pull_user_likes": {
+			"maps_to": "get_user_likes"
+		},
+		"pull_user_feed": {
+			"maps_to": "get_user_feed",
+			"limit": 40,
+			"parameters": {
+				"limit": 10
+			},
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["data"],
+					"items": {
+						"locations": {
+							"id": "id",
+							"from": "from",
+							"message": "message"
+						}
+					}
+				}
+			}
+		}
+	}
+}

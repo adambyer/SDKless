@@ -1,0 +1,100 @@
+{
+	"global": {
+		"merge": {
+			"REDIRECT-URI": "---"
+		},
+		"parameter_maps": {
+			"list_id": "id",
+			"contacts": "batch",
+			"segment_id": "seg_id",
+			"segment_name": "name",
+			"email_address": "email"
+		}
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"time_limit": 3
+		}
+	},
+	"endpoints": {
+		"pull_lists": {
+			"maps_to": "lists_list",
+			"parameters": {
+				"limit": 2,
+				"sort_field": "created",
+				"sort_dir": "ASC"
+			},
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["data"],
+					"items": {
+						"locations": {
+							"id": "id",
+							"name": "name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_contacts": {
+			"maps_to": "export_list",
+			"output": {
+				"data": {
+					"format": "iterable",
+					"items": {
+						"locations": {
+							"email_address": "Email Address",
+							"first_name": "First Name",
+							"last_name": "Last Name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_segments": {
+			"maps_to": "list_segments",
+			"output": {
+				"data": {
+					"location": ["static"]
+				}
+			}
+		},
+		"push_list_segment": {
+			"maps_to": "list_static_segment_add",
+			"output": {
+				"data": {
+					"location": ["id"]
+				}
+			}
+		},
+		"push_list_contacts": {
+			"maps_to": "list_batch_subscribe",
+			"parameters": {
+				"double_optin": 0,
+				"update_existing": 0,
+				"replace_interests": 1
+			},
+			"array_set_templates": {
+				"batch": {
+					"email": {
+						"email": "email_address"
+					},
+					"email_type": "text",
+					"merge_vars": {
+						"FNAME": "first_name",
+						"LNAME": "last_name"
+					}
+				}
+			}
+		},
+		"push_segment_contacts": {
+			"maps_to": "list_static_segment_members_add",
+			"array_set_templates": {
+				"batch": {
+					"email": "email_address"
+				}
+			}
+		}
+	}
+}

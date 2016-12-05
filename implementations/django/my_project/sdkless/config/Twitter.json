@@ -1,0 +1,98 @@
+{
+	"base_uri": "https://api.twitter.com/1.1/",
+	"authentication": {
+		"oauth_header_parameters": {
+			"oauth_callback": "*|OAUTH-CALLBACK|*",
+			"oauth_consumer_key": "*|OAUTH-CONSUMER-KEY|*",
+			"oauth_signature_method": "HMAC-SHA1",
+			"oauth_version": "1.0",
+			"oauth_consumer_secret": "*|OAUTH-CONSUMER-SECRET|*",
+			"oauth_token": "*|OAUTH-TOKEN|*",
+			"oauth_token_secret": "*|OAUTH-TOKEN-SECRET|*",
+			"oauth_verifier": "*|OAUTH-VERIFIER|*",
+			"oauth_nonce": null,
+			"oauth_timestamp": null,
+			"oauth_signature": null
+		},
+		"steps": [
+			{
+				"type": "endpoint",
+				"endpoint": "request_token"
+			},
+			{
+				"type": "redirect",
+				"uri": "https://api.twitter.com/oauth/authenticate",
+				"parameters": {
+					"oauth_token": null
+				}
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "access_token"
+			}
+		]
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"output_format": "json",
+			"include_oauth_header": true,
+			"request_options": {
+				"headers": {
+					"Authorization": "OAuth *|OAUTH-HEADER-PARAMS|*"
+				}
+			}
+		},
+		"get": {
+			"request_options": {
+				"headers": {
+					"Content-Length": "0",
+					"Authorization": "OAuth *|OAUTH-HEADER-PARAMS|*"
+				}
+			}
+		}
+	},
+	"endpoints": {
+		"request_token": {
+			"uri": "https://api.twitter.com/oauth/request_token",
+			"method": "post",
+			"output_format": "query_string",
+			"request_options": {
+				"headers": {
+					"Content-Length": "0",
+					"Authorization": "OAuth *|OAUTH-HEADER-PARAMS|*"
+				}
+			}
+		},
+		"access_token": {
+			"uri": "https://api.twitter.com/oauth/access_token",
+			"method": "post",
+			"merge_maps": {
+				"oauth_token": "OAUTH-TOKEN",
+				"oauth_verifier": "OAUTH-VERIFIER"
+			},
+			"parameters": {
+				"oauth_verifier": "*|OAUTH-VERIFIER|*"
+			},
+			"output_format": "query_string",
+			"request_options": {
+				"headers": {
+					"Authorization": "OAuth *|OAUTH-HEADER-PARAMS|*"
+				}
+			}
+		},
+		"statuses_user_timeline": {
+			"uri": "statuses/user_timeline.json",
+			"method": "get",
+			"parameters": {
+				"screen_name": null
+			}
+		},
+		"followers_list": {
+			"uri": "followers/list.json",
+			"method": "get",
+			"parameters": {
+				"screen_name": null
+			}
+		}
+	}
+}

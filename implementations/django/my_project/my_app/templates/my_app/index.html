@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+</head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var selected_endpoint = '{{ selected_endpoint|default:"" }}';
+
+	// add classes to endpoints to show/hide for each api as applicable
+	{% for id, name in endpoints.items %}
+		{% for api, account in test_accounts.items %}
+			{% if id in account.endpoint %}
+				$('#endpoint option[value="{{ id }}"]').addClass('{{ api }}');
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+
+	setup_endpoints($('#api').val());
+	
+	$('#api').change(function() {
+		selected_endpoint = '';
+		setup_endpoints($(this).val());
+	});
+
+	function setup_endpoints(api) {
+		// loop in reverse in order to select the first applicable
+		$($('#endpoint option').get().reverse()).each(function() {
+			if ($(this).hasClass(api)) {
+				$(this).show();
+
+				if (!selected_endpoint)
+					$(this).prop('selected', true);
+			} else {
+				$(this).hide();
+			}
+		});
+	}
+});
+</script>
+<body>
+	<div>
+		<form>
+			<select id="api" name="api">
+				{% for api, account in test_accounts.items %}
+					<option value="{{ api }}" {% if selected_api and selected_api == api %}selected{% endif %}>{{ api }}</option>
+				{% endfor %}
+			</select>
+			<select id="endpoint" name="endpoint">
+				{% for id, name in endpoints.items %}
+					<option value="{{ id }}" {% if selected_endpoint and selected_endpoint == id %}selected{% endif %}>{{ name }}</option>
+				{% endfor %}
+			</select>
+			<button type="submit">Go</button>
+			<a href="/">reset</a>
+			<a href="{% url 'auth' %}">auth</a>
+		</form>
+	</div>
+	{% if error %}
+	<div style="color:red">
+		<h3>ERROR</h3>
+		{{ error }}
+	</div>
+	{% endif %}
+	<div>
+		{% for tup in sdkless_vars %}
+			<div>
+				<h4>{{ tup.0 }}</h4>
+				<pre><script type="text/javascript">
+						document.write(JSON.stringify(JSON.parse('{{ tup.1|addslashes|safe }}'), null, 4));
+					</script>
+				</pre>
+			</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+{
+	"base_uri": "https://*|DATA-CENTER|*.api.mailchimp.com/3.0/",
+	"authentication": {
+		"steps": [
+			{
+				"type": "redirect",
+				"uri": "https://login.mailchimp.com/oauth2/authorize",
+				"parameters": {
+					"response_type": "code",
+					"client_id": "*|CLIENT-ID|*",
+					"redirect_uri": "*|REDIRECT-URI|*"
+				}
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "token"
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "metadata"
+			}
+		]
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"method": "get",
+			"output_format": "json",
+			"http_code_check": "2",
+			"request_options": {
+				"headers": {
+					"Content-type": "application/json"
+				},
+				"user": [
+					"*|USERNAME|*",
+					"*|API-KEY|*"
+				]
+			},
+			"paging": {
+				"type": "record_offset",
+				"parameters": {
+					"page_size": {
+						"name": "count"
+					},
+					"record_offset": {
+						"name": "offset",
+						"base": 0
+					}
+				}
+			},
+			"output": {
+				"error": {
+					"location": ["error"]
+				}
+			}
+		},
+		"post": {
+			"input_format": "json",
+			"paging": false
+		}
+	},
+	"endpoints": {
+		"token": {
+			"uri": "https://login.mailchimp.com/oauth2/token",
+			"method": "post",
+			"input_format": "query_string",
+			"parameters": {
+				"grant_type": "authorization_code",
+				"client_id": "*|CLIENT-ID|*",
+				"client_secret": "*|CLIENT-SECRET|*",
+				"code": null,
+				"redirect_uri": "*|REDIRECT-URI|*"
+			},
+			"request_options": {
+				"headers": {
+					"Accept": "application/json",
+					"Content-type": "application/x-www-form-urlencoded"
+				},
+				"user": null
+			}
+		},
+		"metadata": {
+			"uri": "https://login.mailchimp.com/oauth2/metadata",
+			"paging": false,
+			"merge_maps": {
+				"access_token": "ACCESS-TOKEN"
+			},
+			"parameters": null,
+			"request_options": {
+				"headers": {
+					"Accept": "application/json",
+					"Authorization": "OAuth *|ACCESS-TOKEN|*"
+				},
+				"user": null
+			}
+		},
+		"lists": {
+			"uri": "lists"
+		},
+		"list_members": {
+			"uri": "lists/*|LIST-ID|*/members"
+		},
+		"list_segments": {
+			"uri": "lists/*|LIST-ID|*/segments",
+			"parameters": {
+				"id": null
+			}
+		},
+		"list_segment_add": {
+			"uri": "lists/*|LIST-ID|*/segments",
+			"method": "post",
+			"parameters": {
+				"name": null,
+				"static_segment": []
+			}
+		},
+		"list_members_add": {
+			"uri": "lists/*|LIST-ID|*",
+			"method": "post",
+			"parameters": {
+				"members": [],
+				"update_existing": null
+			},
+			"parameter_format": {
+				"members": [
+					{
+						"email_address": "sample@sample.com",
+						"email_type": "html, text",
+						"status": "subscribed, unsubscribed, cleaned, pending",
+						"merge_fields": {
+							"FNAME": "John Doe",
+							"LNAME": "Jane Doe"
+						}
+					}
+				]
+			}
+		},
+		"list_segment_members_add": {
+			"uri": "lists/*|LIST-ID|*/segments/*|SEGMENT-ID|*",
+			"method": "post",
+			"parameters": {
+				"members_to_add": []
+			}
+		}
+	}
+}

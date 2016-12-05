@@ -1,0 +1,22 @@
+{
+	"endpoints": {
+		"pull_user": {
+			"maps_to": "get_user"
+		},
+		"pull_user_likes": {
+			"maps_to": "get_user_likes"
+		},
+		"pull_user_feed": {
+			"maps_to": "get_user_feed",
+			"parameters": {
+				"limit": 20
+			},
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["data"]
+				}
+			}
+		}
+	}
+}

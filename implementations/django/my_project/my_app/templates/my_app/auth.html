@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+});
+</script>
+<body>
+	<div>
+		<form>
+			<select id="api" name="api">
+				{% for api, account in test_accounts.items %}
+					<option value="{{ api }}" {% if selected_api and selected_api == api %}selected{% endif %}>{{ api }}</option>
+				{% endfor %}
+			</select>
+			<input type="hidden" name="go" value="1">
+			<button type="submit">Go</button>
+			<a href="{% url 'auth' %}">reset</a>
+			<a href="{% url 'index' %}">home</a>
+		</form>
+	</div>
+	{% if error %}
+	<div style="color:red">
+		<h3>ERROR</h3>
+		{{ error }}
+	</div>
+	{% endif %}
+	<div>
+		{% for tup in sdkless_vars %}
+			<div>
+				<h4>{{ tup.0 }}</h4>
+				<pre><script type="text/javascript">
+						document.write(JSON.stringify(JSON.parse('{{ tup.1|addslashes|safe }}'), null, 4));
+					</script>
+				</pre>
+			</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

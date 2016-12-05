@@ -1,0 +1,97 @@
+{
+	"global": {
+		"merge": {
+			"REDIRECT-URI": "---"
+		},
+		"parameter_maps": {
+			"list_id": "id",
+			"segment_id": "seg_id",
+			"segment_name": "name",
+			"contacts": "members",
+			"first_name": "FNAME",
+			"last_name": "FNAME"
+		}
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"time_limit": 5
+		}
+	},
+	"endpoints": {
+		"pull_lists": {
+			"maps_to": "lists",
+			"paging": false,
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["lists"],
+					"items": {
+						"locations": {
+							"id": "id",
+							"name": "name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_contacts": {
+			"maps_to": "list_members",
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["members"],
+					"items": {
+						"locations": {
+							"email_address": "email_address",
+							"first_name": ["merge_fields", "FNAME"],
+							"last_name": ["merge_fields", "LNAME"]
+						}
+					}
+				}
+			}
+		},
+		"pull_list_segments": {
+			"maps_to": "list_segments",
+			"paging": false,
+			"output": {
+				"data": {
+					"location": ["segments"]
+				}
+			}
+		},
+		"push_list_segment": {
+			"maps_to": "list_segment_add",
+			"output": {
+				"data": {
+					"location": ["id"]
+				}
+			}
+		},
+		"push_list_contacts": {
+			"maps_to": "list_members_add",
+			"parameters": {
+				"update_existing": false
+			},
+			"array_set_templates": {
+				"members": {
+					"email_address": "email_address",
+					"status": "subscribed",
+					"email_type": "text",
+					"merge_fields": {
+						"FNAME": "first_name",
+						"LNAME": "last_name"
+					}
+				}
+			}
+		},
+		"push_segment_contacts": {
+			"maps_to": "list_segment_members_add",
+			"parameter_maps": {
+				"contacts": "members_to_add"
+			},
+			"array_set_templates": {
+				"members_to_add":  "email_address"
+			}
+		}
+	}
+}
