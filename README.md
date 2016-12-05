@@ -47,11 +47,9 @@ With SDKless that would look more like this...
     
 The way this works is that each API has a configuration file (or two) which the SDKless library uses to determine what needs to happen in order to get data from that API and return it in the desired format.
 
-Now, granted, the code in the 1st example could just be put into a separate class and called like the 2nd example. But that is not what SDKless does. The SDKless class in the 2nd example (and included in this repository) has no API-specific code in it. No references to any APIs. It simply uses the configuration file for the specified API to know what to do.
+Now, granted, the code in the 1st example could just be put into a separate class and called like the 2nd example, without SDKless. But that does not eliminate the need for SDKs. The SDKless class in the 2nd example (and in the included demos) has no API-specific code in it. No references to any APIs. It simply uses the configuration file for the specified API to know what to do. No more need to include large SDK libraries; just one or two configuration files for each API.
 
-And keep in mind that your project now only has one or two library files for SDKless, instead of one for each API you need to integrate with. And in many cases, an SDK can be made up of not just one, but several files. With SDKless, all APIs are consumed with the same code, which makes for quicker development, cleaner code, and easier troubleshooting.
-
-This repository includes examples, in JSON configuration files, of this specification applied to several APIs. The hope is that these will be expanded upon, and more added, by the community, resulting in a mostly plug-n-play experience when consuming APIs. This repository also includes a PHP implementation of SDKless.
+This repository includes examples, in JSON configuration files, of this specification applied to several APIs. The hope is that API owners everywhere will adopt the SDKless specification and create specification files for their APIs instead of SDKs, resulting in a mostly plug-n-play experience when consuming APIs. This repository also includes PHP and Python/Django demo implementations of SDKless.
 
 The specification supports:
 
@@ -63,6 +61,6 @@ The specification supports:
 	 - GET, POST, PUT, DELETE
 	 - input parameter format
 	 - output data format/location
-	 - Curl options
+	 - any desired request headers, format, etc..
 
 <b>See full documentation <a href="http://adambyer.github.io/SDKless/" target="_blank">here</a></b>
