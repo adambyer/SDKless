@@ -1,6 +1,5 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document.md</title><style></style></head><body id="preview">
-<h1><a id="SDKless_0"></a>SDKless</h1>
-<h2><a id="Content_2"></a>Content</h2>
+<h1>SDKless</h1>
+<h2>Content</h2>
 <ul>
 <li><a href="#about">About</a></li>
 <li><a href="#documentation">Documentation</a>
@@ -25,10 +24,10 @@
 </ul>
 </li>
 </ul>
-<p>&lt;a id=“about”&gt;&lt;/a&gt;</p>
-<h2><a id="About_19"></a>About</h2>
+<p><a id="about"></a></p>
+<h2>About</h2>
 <p>SDKless is a specification for describing the usage requirements of APIs. The goal of SDKless is to allow developers to use one code library to consume all APIs, rather than incorporating a separate SDK for each API. This will help speed up development time, allow for cleaner code, make troubleshooting easier, and reduce the number of code files required by your application.</p>
-<p>SDKless is most helpful when your application consumes multiple similar APIs. For example, let’s say your application allows users to connect to any social networks they use so they can view all their activity in one place. Normally you would incorporate into your fileset, the SDK for the API of each social network you want to support. Then your code would call the SDK-specific method for each connected social network, and then reformat the API-specific output into something your application can use. Something kinda like this…</p>
+<p>SDKless is most helpful when your application consumes multiple similar APIs. For example, let's say your application allows users to connect to any social networks they use so they can view all their activity in one place. Normally you would incorporate into your fileset, the SDK for the API of each social network you want to support. Then your code would call the SDK-specific method for each connected social network, and then reformat the API-specific output into something your application can use. Something kinda like this...</p>
 <pre><code class="language-php"><span class="hljs-keyword">switch</span> (<span class="hljs-variable">$social_network</span>) {
     <span class="hljs-keyword">case</span> <span class="hljs-string">'some-social-network'</span>:
         <span class="hljs-keyword">require_once</span>(<span class="hljs-string">'libraries/some-social-network.php'</span>);
@@ -62,8 +61,8 @@
         <span class="hljs-keyword">break</span>;
 }
 </code></pre>
-<p>Etc… for however many social networks you support.</p>
-<p>With SDKless that would look more like this…</p>
+<p>Etc... for however many social networks you support.</p>
+<p>With SDKless that would look more like this...</p>
 <pre><code class="language-php"><span class="hljs-keyword">require_once</span>(<span class="hljs-string">'SDKless.php'</span>);
 <span class="hljs-variable">$sdkless</span> = <span class="hljs-keyword">new</span> SDKless(<span class="hljs-variable">$social_network</span>);
 <span class="hljs-variable">$output</span> = <span class="hljs-variable">$sdkless</span>-&gt;go(<span class="hljs-string">'get_posts'</span>);
@@ -90,11 +89,11 @@
 </ul>
 </li>
 </ul>
-<p>&lt;a id=“documentation”&gt;&lt;/a&gt;</p>
-<h2><a id="Documentation_89"></a>Documentation</h2>
-<p>&lt;a id=“config”&gt;&lt;/a&gt;</p>
-<h3><a id="Configuration_Files_91"></a>Configuration Files</h3>
-<p>A configuration file (JSON) contains everything your code needs to consume an API. The included core library expects them to be located in a folder named “config” and named like “ServiceName.json”, with “ServiceName” being passed to the constructor. The intention is that this file would be created and maintained by those in the community who are familiar with the particular API, and then developers using SDKless could simply incorporate it to their application and go. See <a href="#custom-config">custom configuration files</a> for how to override these settings. The supported root level elements are…</p>
+<p><a id="documentation"></a></p>
+<h2>Documentation</h2>
+<p><a id="config"></a></p>
+<h3>Configuration Files</h3>
+<p>A configuration file (JSON) contains everything your code needs to consume an API. The included core library expects them to be located in a folder named "config" and named like "ServiceName.json", with "ServiceName" being passed to the constructor. The intention is that this file would be created and maintained by those in the community who are familiar with the particular API, and then developers using SDKless could simply incorporate it to their application and go. See <a href="#custom-config">custom configuration files</a> for how to override these settings. The supported root level elements are...</p>
 <pre><code class="language-javascript">{
   <span class="hljs-string">"base_uri"</span>: <span class="hljs-string">"https://api.abc.com/v4.2/"</span>,
   <span class="hljs-string">"authentication"</span>: {...},
@@ -103,13 +102,13 @@
   <span class="hljs-string">"endpoints"</span>: {...},
 }
 </code></pre>
-<p>&lt;a id=“base_uri”&gt;&lt;/a&gt;</p>
-<h4><a id="Base_URI_105"></a>Base URI</h4>
+<p><a id="base_uri"></a></p>
+<h4>Base URI</h4>
 <p>base_uri is concatenated with endpoint uris to form the actual uri to be used in the API call.</p>
-<p>&lt;a id=“auth”&gt;&lt;/a&gt;</p>
-<h4><a id="Authentication_109"></a>Authentication</h4>
+<p><a id="auth"></a></p>
+<h4>Authentication</h4>
 <p>The authentication element contains the steps needed to authenticate with the API. This can be used for OAuth1/2 as well as other non-standard flows. The steps are performed in order.</p>
-<h5><a id="Authentication_Step_Settings_112"></a>Authentication Step Settings</h5>
+<h5>Authentication Step Settings</h5>
 <ul>
 <li>oauth_header_parameters</li>
 <li>type
@@ -122,8 +121,8 @@
 <li>parameters (see <a href="#parameters">parameters</a>) (redirect only)</li>
 </ul>
 <p>When processing authentication steps the output from one step is merged with the input for the next step, and <a href="#parameter-maps">parameter_maps</a> and <a href="#merge-maps">merge_maps</a> are applied if specified. If the current step has no parameters, all output parameters from the previous step are processed and included in the current step. If the current step does have parameters, only output parameters from the previous step with keys matching the current step are processed and included.</p>
-<p>&lt;a id=“oauth2”&gt;&lt;/a&gt;<br>
-Here is an example of OAuth2…</p>
+<p><a id="oauth2"></a>
+Here is an example of OAuth2...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"authentication"</span>: {
     <span class="hljs-string">"steps"</span>: [
         {
@@ -141,8 +140,8 @@ Here is an example of OAuth2…</p>
     ]
 }
 </code></pre>
-<p>&lt;a id=“oauth1”&gt;&lt;/a&gt;<br>
-Here is an example of OAuth1…</p>
+<p><a id="oauth1"></a>
+Here is an example of OAuth1...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"authentication"</span>: {
     <span class="hljs-string">"oauth_header_parameters"</span>: {
         <span class="hljs-string">"oauth_callback"</span>: <span class="hljs-string">"*|OAUTH-CALLBACK|*"</span>,
@@ -197,7 +196,7 @@ Here is an example of OAuth1…</p>
     }
 }
 </code></pre>
-<p>Your <a href="#variables">global merge variables</a> would look something like this…</p>
+<p>Your <a href="#variables">global merge variables</a> would look something like this...</p>
 <pre><code class="language-php"><span class="hljs-variable">$global_vars</span> = <span class="hljs-keyword">array</span>(
     <span class="hljs-string">'merge'</span> =&gt; <span class="hljs-keyword">array</span>(
         <span class="hljs-string">'OAUTH-CONSUMER-KEY'</span> =&gt; <span class="hljs-string">'...'</span>,
@@ -206,10 +205,10 @@ Here is an example of OAuth1…</p>
     ),
 );
 </code></pre>
-<p>Note that the “OAUTH-HEADER-PARAMS” merge variable is not specified. This one is automatically applied.</p>
-<p>The <em>auth_token</em> and <em>auth_token_secret</em> parameters will be removed during the authentication process, as they are not specified (or needed). The access_token endpoint response should include the <em>auth_token</em> and <em>auth_token_secret</em> which you would then include in global merge variables as “OAUTH-TOKEN” and “OAUTH-TOKEN-SECRET” for subsequent API calls.</p>
-<h4><a id="Common_Endpoint_Settings_220"></a>Common Endpoint Settings</h4>
-<p>Common endpoint settings are used for all endpoints unless the same setting exists in the endpoint itself. Method specific settings (get, post, etc…) take precedence over settings in the “all” section. See <a href="#endpoints">endpoints</a> for supported settings.</p>
+<p>Note that the "OAUTH-HEADER-PARAMS" merge variable is not specified. This one is automatically applied.</p>
+<p>The <em>auth_token</em> and <em>auth_token_secret</em> parameters will be removed during the authentication process, as they are not specified (or needed). The access_token endpoint response should include the <em>auth_token</em> and <em>auth_token_secret</em> which you would then include in global merge variables as "OAUTH-TOKEN" and "OAUTH-TOKEN-SECRET" for subsequent API calls.</p>
+<h4>Common Endpoint Settings</h4>
+<p>Common endpoint settings are used for all endpoints unless the same setting exists in the endpoint itself. Method specific settings (get, post, etc..) take precedence over settings in the "all" section. See <a href="#endpoints">endpoints</a> for supported settings.</p>
 <pre><code class="language-javascript"><span class="hljs-string">"common_endpoint_settings"</span>: {
     <span class="hljs-string">"all"</span>: {
         <span class="hljs-string">"output_format"</span>: <span class="hljs-string">"json"</span>,
@@ -236,19 +235,19 @@ Here is an example of OAuth1…</p>
     }
 }
 </code></pre>
-<p>&lt;a id=“prerequisites”&gt;&lt;/a&gt;</p>
-<h4><a id="Endpoint_Prerequisites_252"></a>Endpoint Prerequisites</h4>
+<p><a id="prerequisites"></a></p>
+<h4>Endpoint Prerequisites</h4>
 <p>endpoint_prerequisites specifies one or more endpoints to be called prior to the requested endpoint. This can be used for certain types of authentication, or for refreshing an access_token, for example. The response data from each prerequisite endpoint call can be merged into your config using the <a href="#merge-maps">merge_maps</a> setting. This allows output data from prerequisite endpoint calls to be used in any subsequent calls.</p>
-<h5><a id="Endpoint_Prerequisites_Settings_255"></a>Endpoint Prerequisites Settings</h5>
+<h5>Endpoint Prerequisites Settings</h5>
 <p><strong>endpoint</strong></p>
 <p>The name of the endpoint to call</p>
-<p><strong>protocol</strong>&lt;a id=“cookie-protocol”&gt;&lt;/a&gt;</p>
-<p>Protocol is used to control what should happen with prerequisite endpoint response data. Currently only “cookie” is supported by the included PHP demo. The “cookie” protocol will set the COOKIEFILE and COOKIEJAR curl options required by some authentication schemes.</p>
+<p><strong>protocol</strong><a id="cookie-protocol"></a></p>
+<p>Protocol is used to control what should happen with prerequisite endpoint response data. Currently only "cookie" is supported by the included PHP demo. The "cookie" protocol will set the COOKIEFILE and COOKIEJAR curl options required by some authentication schemes.</p>
 <p><strong>repeat</strong></p>
 <p>This specifies whether the prerequisite should be processed for every endpoint call (during the life of the script) or just the first.</p>
 <p><strong>merge_maps</strong></p>
 <p>See <a href="#merge-maps">merge_maps</a></p>
-<p>Here is an example of using prerequisites to refresh an access token before calling the requested endpoint. In this example we are using the <a href="#custom-config">custom config file</a>, since how/when to refresh access tokens should be based on the needs of the application. Assuming our standard config looked something like this…</p>
+<p>Here is an example of using prerequisites to refresh an access token before calling the requested endpoint. In this example we are using the <a href="#custom-config">custom config file</a>, since how/when to refresh access tokens should be based on the needs of the application. Assuming our standard config looked something like this...</p>
 <pre><code class="language-javascript">"common_endpoint_settings": {
     "all": {
         "request_options": {
@@ -270,7 +269,7 @@ Here is an example of OAuth1…</p>
     }
 }
 </code></pre>
-<p>Our custom config would look something like this…</p>
+<p>Our custom config would look something like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"global"</span>: {
     <span class="hljs-string">"parameter_maps"</span>: {
         <span class="hljs-string">"refresh_token"</span>: <span class="hljs-string">"REFRESH-TOKEN"</span>
@@ -288,7 +287,7 @@ Here is an example of OAuth1…</p>
     }
 }
 </code></pre>
-<p>So when we call any endpoint for this API, the <em>refresh_token</em> endpoint will be called first since it’s specified in <em>endpoint_prerequisites</em>. We would pass a merge variable named “refresh_token”, <em>parameter_maps</em> would update that to “REFRESH-TOKEN”, and it’s value would then replace  “*|REFRESH-TOKEN|*” in the endpoint named “refresh_token”. The output of that call contains a value named “access_token”. <em>merge_maps</em> specifies to update that key to “ACCESS-TOKEN” and it’s value would then replace “*ACCESS-TOKEN*” in <em>common_endpoint_settings</em>. Our requested endpoint would then be called, including the required access token. Using the included PHP library it would look like this…</p>
+<p>So when we call any endpoint for this API, the <em>refresh_token</em> endpoint will be called first since it's specified in <em>endpoint_prerequisites</em>. We would pass a merge variable named "refresh_token", <em>parameter_maps</em> would update that to "REFRESH-TOKEN", and it's value would then replace  "*|REFRESH-TOKEN|*" in the endpoint named "refresh_token". The output of that call contains a value named "access_token". <em>merge_maps</em> specifies to update that key to "ACCESS-TOKEN" and it's value would then replace "*ACCESS-TOKEN*" in <em>common_endpoint_settings</em>. Our requested endpoint would then be called, including the required access token. Using the included PHP library it would look like this...</p>
 <pre><code class="language-php"><span class="hljs-variable">$global_vars</span> = <span class="hljs-keyword">array</span>(
     <span class="hljs-string">'merge'</span> =&gt; <span class="hljs-keyword">array</span>(
         <span class="hljs-string">'refresh_token'</span> =&gt; <span class="hljs-string">'VALUE STORE IN DB'</span>,
@@ -297,9 +296,9 @@ Here is an example of OAuth1…</p>
 <span class="hljs-variable">$sdkless</span> = <span class="hljs-keyword">new</span> SDKless(<span class="hljs-string">'ServiceName'</span>, <span class="hljs-variable">$global_vars</span>);
 <span class="hljs-variable">$output</span> = <span class="hljs-variable">$sdkless</span>-&gt;go(<span class="hljs-string">'DESIRED ENDPOINT NAME'</span>);
 </code></pre>
-<p>&lt;a id=“endpoints”&gt;&lt;/a&gt;</p>
-<h4><a id="Endpoints_331"></a>Endpoints</h4>
-<p>The endpoints element contains the key for each API endpoint along with their settings, like this…</p>
+<p><a id="endpoints"></a></p>
+<h4>Endpoints</h4>
+<p>The endpoints element contains the key for each API endpoint along with their settings, like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"access_token"</span>: {
     <span class="hljs-string">"uri"</span>: <span class="hljs-string">"https://api.abc.com/oauth/access_token"</span>,
     <span class="hljs-string">"method"</span>: <span class="hljs-string">"get"</span>,
@@ -317,7 +316,7 @@ Here is an example of OAuth1…</p>
 },
 </code></pre>
 <p>The key (access_token, get_user_friends) is how your code will reference the desired endpoint.</p>
-<h5><a id="Endpoint_Settings_354"></a>Endpoint Settings</h5>
+<h5>Endpoint Settings</h5>
 <ul>
 <li><a href="#bypass-prerequisites">bypass_prerequisites</a> (true, false)</li>
 <li><a href="#request-options">request_options</a></li>
@@ -379,12 +378,12 @@ Here is an example of OAuth1…</p>
 <li><a href="#time-limit">time_limit</a></li>
 <li>uri (required)</li>
 </ul>
-<p>&lt;a id=“bypass-prerequisites”&gt;&lt;/a&gt;<br>
+<p><a id="bypass-prerequisites"></a>
 <strong>bypass_prerequisites</strong></p>
 <p><em>bypass_prerequisites</em> is used to prevent endpoints from adhering to <a href="#prerequisites">endpoint_prerequisites</a></p>
-<p>&lt;a id=“request-options”&gt;&lt;/a&gt;<br>
+<p><a id="request-options"></a>
 <strong>request_options</strong></p>
-<p><em>request_options</em> is a structure of key/value pairs, used to specify the options to be used when sending requests to the API. The included PHP demo uses curl and expects curl options (other than headers) to be specified without the “CURLOPT_” prefix. The included Django demo uses the <em>requests</em> library. So your request_options endpoint configuration might look like this…</p>
+<p><em>request_options</em> is a structure of key/value pairs, used to specify the options to be used when sending requests to the API. The included PHP demo uses curl and expects curl options (other than headers) to be specified without the "CURLOPT_" prefix. The included Django demo uses the <em>requests</em> library. So your request_options endpoint configuration might look like this...</p>
 <pre><code class="language-php"><span class="hljs-string">"request_options"</span>: {
     <span class="hljs-string">"headers"</span>: {
         <span class="hljs-string">"Authorization: Bearer *|ACCESS-TOKEN|*"</span>
@@ -395,16 +394,16 @@ Here is an example of OAuth1…</p>
     <span class="hljs-string">"SSL_VERIFYHOST"</span>: <span class="hljs-keyword">false</span>
 }
 </code></pre>
-<p>&lt;a id=“input-format”&gt;&lt;/a&gt;<br>
+<p><a id="input-format"></a>
 <strong>input_format</strong></p>
-<p><em>input_format</em> specifies in what format the endpoint is expecting it’s parameters</p>
+<p><em>input_format</em> specifies in what format the endpoint is expecting it's parameters</p>
 <ul>
 <li>json: parameters are JSON encoded</li>
 <li>query_string: parameters are uri encoded</li>
 </ul>
-<p>&lt;a id=“merge-maps”&gt;&lt;/a&gt;<br>
+<p><a id="merge-maps"></a>
 <strong>merge_maps</strong></p>
-<p><em>merge_maps</em> is a structure of key/value pairs and is used by authentication and prerequisites. When processing an authentication step or a prerequisite endpoint, the output is merged into your config, allowing those values to be used in subsequent calls. The <em>key</em> is the output parameter name and the <em>value</em> is a string to be searched for and replaced with the actual value of the output parameter. As an example, the authentication flows for some APIs require an additional call after the access_token is retrieved, and this call requires the access_token itself. Something like this…</p>
+<p><em>merge_maps</em> is a structure of key/value pairs and is used by authentication and prerequisites. When processing an authentication step or a prerequisite endpoint, the output is merged into your config, allowing those values to be used in subsequent calls. The <em>key</em> is the output parameter name and the <em>value</em> is a string to be searched for and replaced with the actual value of the output parameter. As an example, the authentication flows for some APIs require an additional call after the access_token is retrieved, and this call requires the access_token itself. Something like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"authentication"</span>: {
     <span class="hljs-string">"steps"</span>: [
         {
@@ -427,7 +426,7 @@ Here is an example of OAuth1…</p>
     ]
 }
 </code></pre>
-<p>And the <em>metadata</em> endpoint would look like…</p>
+<p>And the <em>metadata</em> endpoint would look like...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"metadata"</span>: {
     <span class="hljs-string">"uri"</span>: <span class="hljs-string">"https://login.abc.com/oauth2/metadata"</span>,
     <span class="hljs-string">"method"</span>: <span class="hljs-string">"get"</span>,
@@ -442,20 +441,20 @@ Here is an example of OAuth1…</p>
 }
 </code></pre>
 <p>The output of the <em>token</em> endpoint contains an <em>access_token</em> parameter. The value of that parameter then replaces *|ACCESS-TOKEN|* in the <em>metadata</em> endpoint call.</p>
-<p>&lt;a id=“method”&gt;&lt;/a&gt;<br>
+<p><a id="method"></a>
 <strong>method</strong> (get, post)</p>
 <p>* note: <em>put</em> and <em>delete</em> methods are supported in the included PHP demo by specifying CUSTOMREQUEST in endpoint-&gt;request_options or common_endpoint_settings-&gt;request_options</p>
-<p>&lt;a id=“output”&gt;&lt;/a&gt;<br>
+<p><a id="output"></a>
 <strong>output</strong></p>
-<p>The <em>output</em> setting can be used in both standard and custom config files. In standard config files it would typically only be used to specify where any indication of error can be found. This would look like…</p>
+<p>The <em>output</em> setting can be used in both standard and custom config files. In standard config files it would typically only be used to specify where any indication of error can be found. This would look like...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"output"</span>: {
     <span class="hljs-string">"error"</span>: {
         <span class="hljs-string">"location"</span>: [<span class="hljs-string">"error"</span>]
     }
 }
 </code></pre>
-<p>This specifies that the output should be checked in this location for the existence of a key named “error”. See <a href="#output-data-location">here</a> for how <em>location</em> is processed.</p>
-<p>In custom config files the structure would look like…</p>
+<p>This specifies that the output should be checked in this location for the existence of a key named "error". See <a href="#output-data-location">here</a> for how <em>location</em> is processed.</p>
+<p>In custom config files the structure would look like...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"output"</span>: {
     <span class="hljs-string">"data"</span>: {
         <span class="hljs-string">"format"</span>: <span class="hljs-string">"..."</span>,
@@ -474,14 +473,14 @@ Here is an example of OAuth1…</p>
     ]
 }
 </code></pre>
-<p>&lt;a id=“output-data-format”&gt;&lt;/a&gt;<br>
+<p><a id="output-data-format"></a>
 output -&gt; data -&gt; format (scalar, structure, iterable)</p>
 <p><em>scalar</em> indicates that output data is to be left as is. An example would be retrieving a record count, or an id after creating a record. It could also be used to retrieve an object such as a contact record, as long as the output did not need to be processed in any way. If paging is being done, the output of each call would be added to a final output array, though paging would be unlikely for scalar results.</p>
 <p><em>structure</em> is intended to be used when the output will contain an array or object. It works the same as <em>scalar</em>, but can also be processed using <a href="#output-data-items-locations">items</a> functionality. An example would be retrieving a single contact and needing to specify where the email/first_name/last_name values are located.</p>
 <p><em>iterable</em> (default)  works like <em>structure</em>, but when paging these will be merged to form a single output array.</p>
-<p>&lt;a id=“output-data-location”&gt;&lt;/a&gt;<br>
-output -&gt; data -&gt; location<br>
-This array specifies where the desired output data is located in the API response. It will typically be used in the custom config file. Each item in the array represents a key in the response structure hierarchy. For example, the response of an API call may look like this…</p>
+<p><a id="output-data-location"></a>
+output -&gt; data -&gt; location
+This array specifies where the desired output data is located in the API response. It will typically be used in the custom config file. Each item in the array represents a key in the response structure hierarchy. For example, the response of an API call may look like this...</p>
 <pre><code class="language-javascript">{
     <span class="hljs-string">"total_count"</span>: <span class="hljs-number">9</span>,
     <span class="hljs-string">"data"</span>: {
@@ -519,16 +518,16 @@ This array specifies where the desired output data is located in the API respons
     }
 }
 </code></pre>
-<p>If you only wanted the array of contacts in your output you would specify that like so…</p>
+<p>If you only wanted the array of contacts in your output you would specify that like so...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"output"</span>: {
     <span class="hljs-string">"data"</span>: {
         <span class="hljs-string">"location"</span>: [<span class="hljs-string">"data"</span>, <span class="hljs-string">"contacts"</span>]
     }
 }
 </code></pre>
-<p>&lt;a id=“output-data-items-locations”&gt;&lt;/a&gt;<br>
-output -&gt; data -&gt; items -&gt; locations<br>
-This is used when the API response is a structure (array or object) and you want to format the output for each item. Given the API response in the previous example, you may use something like this…</p>
+<p><a id="output-data-items-locations"></a>
+output -&gt; data -&gt; items -&gt; locations
+This is used when the API response is a structure (array or object) and you want to format the output for each item. Given the API response in the previous example, you may use something like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"output"</span>: {
     <span class="hljs-string">"data"</span>: {
         <span class="hljs-string">"location"</span>: [<span class="hljs-string">"data"</span>, <span class="hljs-string">"contacts"</span>],
@@ -550,10 +549,10 @@ This is used when the API response is a structure (array or object) and you want
 }
 </code></pre>
 <p><em>locations</em> is a structure of key/value pairs. The key is the actual key we want used in our output. The value specifies where to find the value we want in the response.</p>
-<p>If the value is scalar, then the response item is checked for that key.  So the “first_name” item in our output would contain the value of “given_name” from the response, in this case “John” and “Jane”.</p>
+<p>If the value is scalar, then the response item is checked for that key.  So the "first_name" item in our output would contain the value of "given_name" from the response, in this case "John" and "Jane".</p>
 <p>If the value is an array, the response item hierarchy is searched as follows. For each item in the array, if the item is scalar, we drill down in the response item using that scalar value as the key. If the item is a structure, it must contain <em>search_key</em>, <em>search_value</em>, and <em>return_key</em>. Also, the current response item value must be a structure. Each item in that structure is tested with the <em>search_key</em> and <em>search_value</em> and, if it matches, the value corresponding to the <em>return_key</em> is returned.</p>
-<p>So in the case of “email_address”, the first item in the array is “email_addresses” which is scalar, so we drill down to that element in the response item. The next item is a structure containing the search parameters. So we loop through the items in the “email_addresses” array. Each item is checked to see if the “primary” (search_key) value is set to 1 (search_value), and if so the value associated with the “address” (return_key) is used.</p>
-<p>So the output would be…</p>
+<p>So in the case of "email_address", the first item in the array is "email_addresses" which is scalar, so we drill down to that element in the response item. The next item is a structure containing the search parameters. So we loop through the items in the "email_addresses" array. Each item is checked to see if the "primary" (search_key) value is set to 1 (search_value), and if so the value associated with the "address" (return_key) is used.</p>
+<p>So the output would be...</p>
 <pre><code class="language-javascript">[
     {
         <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"John"</span>,
@@ -567,9 +566,9 @@ This is used when the API response is a structure (array or object) and you want
     }
 ]
 </code></pre>
-<p>&lt;a id=“output-data-key_filter”&gt;&lt;/a&gt;<br>
+<p><a id="output-data-key_filter"></a>
 output -&gt; data -&gt; key_filter</p>
-<p><em>key_filter</em> is used to remove unwanted results from a response. Currently only “numeric” is supported in the included PHP demo. When specified, the response structure is traversed and any items with non-numeric keys are removed. This is helpful in cases where the API response looks like this…</p>
+<p><em>key_filter</em> is used to remove unwanted results from a response. Currently only "numeric" is supported in the included PHP demo. When specified, the response structure is traversed and any items with non-numeric keys are removed. This is helpful in cases where the API response looks like this...</p>
 <pre><code class="language-javascript">{
     "total": 9,
     0: {
@@ -582,19 +581,19 @@ output -&gt; data -&gt; key_filter</p>
     }
 }
 </code></pre>
-<p>If your application is expecting a list of contacts, this will remove any non-numeric keyed values like “total”.</p>
-<p>&lt;a id=“output-filter”&gt;&lt;/a&gt;<br>
+<p>If your application is expecting a list of contacts, this will remove any non-numeric keyed values like "total".</p>
+<p><a id="output-filter"></a>
 output -&gt; filter</p>
-<p>The output <em>filter</em> setting is an array of one or more filters to be applied to the API response array. Each response item is checked and if the <em>search_key</em> value doesn’t match the <em>search_value</em>, the item is removed. This is useful when the API doesn’t provide filtering capabilities. If <em>return_key</em> is set, only the value for that key is returned, which is useful when you want to look up a value in one result of a set, for example, if you have a contacts email address and need to get their ID.</p>
-<p><em>return_type</em> is optional. When set to “boolean” the output will return <em>true</em> if a match is found and <em>false</em> if not. When set to “!boolean”, the opposite is returned.</p>
-<p>&lt;a id=“output-format”&gt;&lt;/a&gt;<br>
+<p>The output <em>filter</em> setting is an array of one or more filters to be applied to the API response array. Each response item is checked and if the <em>search_key</em> value doesn't match the <em>search_value</em>, the item is removed. This is useful when the API doesn't provide filtering capabilities. If <em>return_key</em> is set, only the value for that key is returned, which is useful when you want to look up a value in one result of a set, for example, if you have a contacts email address and need to get their ID.</p>
+<p><em>return_type</em> is optional. When set to "boolean" the output will return <em>true</em> if a match is found and <em>false</em> if not. When set to "!boolean", the opposite is returned.</p>
+<p><a id="output-format"></a>
 <strong>output_format</strong></p>
 <ul>
 <li>json: the response is treated as a JSON encoded string which is decoded to a structure</li>
 <li>json_text_lines: the response is treated as series of records delimited by a carriage-return and/or line-feed, with each record being treated as a JSON encoded string which is decoded to a structure</li>
 <li>query_string: the response is treated as as being uri encoded and is decoded to a structure</li>
 </ul>
-<p>&lt;a id=“paging”&gt;&lt;/a&gt;<br>
+<p><a id="paging"></a>
 <strong>paging</strong></p>
 <p>The <em>paging</em> setting can be used in both standard and custom config files. In custom config files it would typically only be used to turn off paging for an endpoint (by setting it to <em>false</em>).</p>
 <p>There are two types of paging supported; <em>page_number</em> and <em>cursor</em>.</p>
@@ -613,7 +612,7 @@ output -&gt; filter</p>
 }
 </code></pre>
 <p><em>parameters -&gt; page_size</em> and <em>parameters -&gt; page_number</em> are required. <em>page_size -&gt; name</em> specifies the name (key) to be used in the API call to indicate the number of records per page. <em>page_number -&gt; name</em> specifies the name (key) to be used to indicate the page number. <em>page_number -&gt; base</em> specifies whether page numbering starts with 0 or 1.</p>
-<p>Here is an example of <em>cursor</em> paging…</p>
+<p>Here is an example of <em>cursor</em> paging...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"paging"</span>: {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"cursor"</span>,
     <span class="hljs-string">"parameters"</span>: {
@@ -624,28 +623,28 @@ output -&gt; filter</p>
 }
 </code></pre>
 <p><em>parameters -&gt; cursor -&gt; location</em> is required and indicates where in the response the next page cursor can be found. See <a href="#output-data-location">here</a> for how <em>location</em> is processed.</p>
-<p>&lt;a id=“parameters”&gt;&lt;/a&gt;<br>
+<p><a id="parameters"></a>
 <strong>parameters</strong></p>
 <p>The <em>parameters</em> setting is used in both the standard and custom config files. It is a set of key/value pairs specifying the values that will be passed to the API endpoint. The standard config file will typically contain required parameters, either set to a required value, or set to <em>null</em>. Null indicates this parameter needs to be set by your <a href="#variables">variables</a> or in your <a href="#custom-config">custom config file</a>. They may also be set to a value containing a <a href="#merge-variables">merge variable</a>.</p>
-<p>&lt;a id=“time-limit”&gt;&lt;/a&gt;<br>
+<p><a id="time-limit"></a>
 <strong>time_limit</strong></p>
 <p><em>time_limit</em> is used to set the time limit for the entire script processing your endpoint request.</p>
-<p>&lt;a id=“uri”&gt;&lt;/a&gt;<br>
+<p><a id="uri"></a>
 <strong>uri</strong></p>
 <p>This is the uri for the API endpoint call. If it is not a full uri, it will be appended to the <a href="#base_uri">base_uri</a>.</p>
-<p>&lt;a id=“custom-config”&gt;&lt;/a&gt;</p>
-<h3><a id="Custom_Configuration_Files_714"></a>Custom Configuration Files</h3>
-<p>Custom configuration files are used to override the settings in the standard configuration files for a given API. The included PHP library expects them to be located in a folder named “config”, located in the same folder as the running script,  and named like “ServiceName.custom.json”. The intention is that developers using SDKless would create/modify these to suit the needs of their application, while the standard config files would be maintained by the community. This allows you to use the same code to call all of your APIs without having any API-specific logic cluttering up your code.</p>
-<p>Custom configuration files support all of the same settings as standard config files, as well as…</p>
+<p><a id="custom-config"></a></p>
+<h3>Custom Configuration Files</h3>
+<p>Custom configuration files are used to override the settings in the standard configuration files for a given API. The included PHP library expects them to be located in a folder named "config", located in the same folder as the running script,  and named like "ServiceName.custom.json". The intention is that developers using SDKless would create/modify these to suit the needs of their application, while the standard config files would be maintained by the community. This allows you to use the same code to call all of your APIs without having any API-specific logic cluttering up your code.</p>
+<p>Custom configuration files support all of the same settings as standard config files, as well as...</p>
 <ul>
 <li><a href="#array-set-templates">array_set_templates</a> (endpoints -&gt; endpoint-name -&gt; array_set_templates)</li>
 <li><a href="#global">global</a></li>
 <li><a href="#maps-to">maps_to</a> (endpoints -&gt; endpoint-name -&gt; maps_to)</li>
 <li><a href="#parameter-maps">parameter_maps</a> (global -&gt; parameter_maps, endpoints -&gt; endpoint-name -&gt; parameter_maps)</li>
 </ul>
-<p>&lt;a id=“array-set-templates”&gt;&lt;/a&gt;<br>
+<p><a id="array-set-templates"></a>
 <strong>array_set_templates</strong></p>
-<p><em>array_set_templates</em> is used when calling an endpoint that accepts multiple items requiring the same format, like when adding multiple contacts to a CRM. Each contact will be reformatted to match the requirements of the API. For example, you may have data looking like this…</p>
+<p><em>array_set_templates</em> is used when calling an endpoint that accepts multiple items requiring the same format, like when adding multiple contacts to a CRM. Each contact will be reformatted to match the requirements of the API. For example, you may have data looking like this...</p>
 <pre><code class="language-php"><span class="hljs-variable">$contacts</span> = <span class="hljs-keyword">array</span>(
     <span class="hljs-keyword">array</span>(
         <span class="hljs-string">'email_address'</span> =&gt; <span class="hljs-string">'john@doe.com'</span>,
@@ -659,14 +658,14 @@ output -&gt; filter</p>
     ),
 );
 </code></pre>
-<p>And the API expects the contacts array to contain structures each formatted like this…</p>
+<p>And the API expects the contacts array to contain structures each formatted like this...</p>
 <pre><code class="language-javascript">{
     <span class="hljs-string">"MemberEmail"</span>: <span class="hljs-string">"..."</span>,
     <span class="hljs-string">"MemberFirstName"</span>: <span class="hljs-string">"..."</span>,
     <span class="hljs-string">"MemberLastName"</span>: <span class="hljs-string">"..."</span>
 }
 </code></pre>
-<p>Your endpoint configuration would look like this…</p>
+<p>Your endpoint configuration would look like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"array_set_templates"</span>: {
     <span class="hljs-string">"contacts"</span>: {
         <span class="hljs-string">"MemberEmail"</span>: <span class="hljs-string">"email_address"</span>,
@@ -675,16 +674,16 @@ output -&gt; filter</p>
     }
 }
 </code></pre>
-<p>&lt;a id=“global”&gt;&lt;/a&gt;<br>
+<p><a id="global"></a>
 <strong>global</strong></p>
 <p>The <em>global</em> setting is another place to specify non-endpoint-specific values. The supported child settings are <a href="#merge-variables">merge</a>, <a href="#set-variables">set</a>, and <a href="#parameter-maps">parameter_maps</a>.</p>
-<p>&lt;a id=“maps-to”&gt;&lt;/a&gt;<br>
+<p><a id="maps-to"></a>
 <strong>maps_to</strong></p>
-<p>This is used to specify the endpoint name used in the standard config file. This is useful for calling all of your integrated APIs using the same endpoint names. So, if for example you are integrating with multiple social networks, they would each have their own endpoint name (specified in their standard config file) for retrieving a feed, such as “get_status_updates”, “feed”, “export_posts”, etc. You can call all of them with “pull_feed” by specifying that as the <em>maps_to</em> value.</p>
-<p>&lt;a id=“parameter-maps”&gt;&lt;/a&gt;<br>
+<p>This is used to specify the endpoint name used in the standard config file. This is useful for calling all of your integrated APIs using the same endpoint names. So, if for example you are integrating with multiple social networks, they would each have their own endpoint name (specified in their standard config file) for retrieving a feed, such as "get_status_updates", "feed", "export_posts", etc. You can call all of them with "pull_feed" by specifying that as the <em>maps_to</em> value.</p>
+<p><a id="parameter-maps"></a>
 <strong>parameter_maps</strong></p>
 <p>The <em>parameter_maps</em> setting is a series of key/value pairs that is used for updating parameters to the keys required by the API. This is applied when preparing <a href="#auth">authentication</a> steps and endpoint <a href="#variables">variables</a>.</p>
-<p>This is useful for keeping all of your API calls consistent. Let’s say you integrate with several CRMs and pull contacts from mailing lists. The API endpoints require an id parameter to specify the list you want. This may be named “id”, “list_id”, “group_id”, etc. Using parameter_maps you can use &quot;list_id for all of them. Let’s say your config endpoint looked like this…</p>
+<p>This is useful for keeping all of your API calls consistent. Let's say you integrate with several CRMs and pull contacts from mailing lists. The API endpoints require an id parameter to specify the list you want. This may be named "id", "list_id", "group_id", etc. Using parameter_maps you can use "list_id for all of them. Let's say your config endpoint looked like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"get_people_from_group"</span>: {
     <span class="hljs-string">"uri"</span>: <span class="hljs-string">"groups/people.json"</span>
     <span class="hljs-string">"parameters"</span>: {
@@ -692,7 +691,7 @@ output -&gt; filter</p>
     }
 }
 </code></pre>
-<p>The endpoint in your custom config could look like this…</p>
+<p>The endpoint in your custom config could look like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"pull_list_contacts"</span>: {
     <span class="hljs-string">"maps_to"</span>: <span class="hljs-string">"get_people_from_group"</span>,
     <span class="hljs-string">"parameter_maps"</span>: {
@@ -700,12 +699,12 @@ output -&gt; filter</p>
     }
 }
 </code></pre>
-<p>So now you can pass in a “list_id” <a href="#set-variables">set variable</a> and it will be passed to the API endpoint as the “group_id” in this case. These can also be used in conjunction with merge variables. Let’s say, instead, your config endpoint looked like this…</p>
+<p>So now you can pass in a "list_id" <a href="#set-variables">set variable</a> and it will be passed to the API endpoint as the "group_id" in this case. These can also be used in conjunction with merge variables. Let's say, instead, your config endpoint looked like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"get_people_from_group"</span>: {
     <span class="hljs-string">"uri"</span>: <span class="hljs-string">"groups/*|GROUP-ID|*/people.json"</span>
 }
 </code></pre>
-<p>The endpoint in your custom config could look like this…</p>
+<p>The endpoint in your custom config could look like this...</p>
 <pre><code class="language-javascript"><span class="hljs-string">"pull_list_contacts"</span>: {
     <span class="hljs-string">"maps_to"</span>: <span class="hljs-string">"get_people_from_group"</span>,
     <span class="hljs-string">"parameter_maps"</span>: {
@@ -713,32 +712,32 @@ output -&gt; filter</p>
     }
 }
 </code></pre>
-<p>You would now pass “list_id” as a <a href="#merge-variables">merge variable</a> and it would replace the *|GROUP-ID|* in the endpoint uri.</p>
-<p>&lt;a id=“variables”&gt;&lt;/a&gt;</p>
-<h3><a id="Variables_825"></a>Variables</h3>
+<p>You would now pass "list_id" as a <a href="#merge-variables">merge variable</a> and it would replace the *|GROUP-ID|* in the endpoint uri.</p>
+<p><a id="variables"></a></p>
+<h3>Variables</h3>
 <p>Variables can be incorporated into your API calls in several ways. Global**** variables (<a href="#merge-variables">merge</a>, <a href="#set-variables">set</a>) are intended for values that are consistent across all endpoints, such as an API key . Endpoint variables (<a href="#merge-variables">merge</a>, <a href="#set-variables">set</a>, <a href="#array-set-variables">array_set</a>) are intended for endpoint-specific values. Local* variables are not incorporated into config files, but rather are intended for use by the code which processes the config files.</p>
 <ul>
 <li>
-<p>&lt;a id=“merge-variables”&gt;&lt;/a&gt;<em>merge</em></p>
+<p><a id="merge-variables"></a><em>merge</em></p>
 <ul>
 <li>passed as key/value pairs</li>
 <li>incorporated into config files by a find/replace**; the key is searched for and replaced with the value</li>
-<li>works well for incorporating partials into a string, such as “lists/*|LIST-ID|*/contacts.json”</li>
+<li>works well for incorporating partials into a string, such as "lists/*|LIST-ID|*/contacts.json"</li>
 <li>config settings are ignored if they contain unmerged variables</li>
 </ul>
 </li>
 <li>
-<p>&lt;a id=“set-variables”&gt;&lt;/a&gt;<em>set</em></p>
+<p><a id="set-variables"></a><em>set</em></p>
 <ul>
 <li>passed as key/value pairs</li>
-<li>incorporated into config files by finding the existing key and setting it’s value***</li>
+<li>incorporated into config files by finding the existing key and setting it's value***</li>
 </ul>
 </li>
 <li>
-<p>&lt;a id=“array-set-variables”&gt;&lt;/a&gt;<em>array_set</em></p>
+<p><a id="array-set-variables"></a><em>array_set</em></p>
 <ul>
 <li>passed as an array of key/value pairs</li>
-<li>incorporated into config files by finding the existing key and setting it’s value for each item in the array</li>
+<li>incorporated into config files by finding the existing key and setting it's value for each item in the array</li>
 <li>uses <a href="#array-set-templates">array_set_templates</a></li>
 </ul>
 </li>
@@ -746,20 +745,18 @@ output -&gt; filter</p>
 <p>* the included PHP demo uses local variables for <a href="#prerequisites">prerequisites</a> using the <a href="#cookie-protocol">cookie protocol</a>, and for setting up non-standard paging parameters</p>
 <p>** in the included PHP demo, merge variables are surrounded by an opening *| and closing |*</p>
 <p>*** in the included PHP demo, global variables are passed to the constructor</p>
-<p>&lt;a id=“core-library”&gt;&lt;/a&gt;</p>
-<h3><a id="Core_Library_850"></a>Core Library</h3>
-<p>This repository contains an example implementation of the SDKless specification for PHP, in the “core” folder. The class to instantiate (or extend) is SDKless. This class incorporates all other classes in the library as needed. The constructor accepts the service name (API) and array of global variables as arguments.</p>
-<p>The <em>authenticate</em> method accepts the step id, array of parameters from the previous step, and a “done” flag which should be set to <em>true</em> when the authentication is complete. Step id should start at 0. See the auth.php file included in this repository for example code for processing authentication.</p>
+<p><a id="core-library"></a></p>
+<h3>Core Library</h3>
+<p>This repository contains an example implementation of the SDKless specification for PHP, in the "core" folder. The class to instantiate (or extend) is SDKless. This class incorporates all other classes in the library as needed. The constructor accepts the service name (API) and array of global variables as arguments.</p>
+<p>The <em>authenticate</em> method accepts the step id, array of parameters from the previous step, and a "done" flag which should be set to <em>true</em> when the authentication is complete. Step id should start at 0. See the auth.php file included in this repository for example code for processing authentication.</p>
 <p>The <em>go</em> method accepts the endpoint name, array of endpoint variables, and an array of local variables as arguments. See the index.php file included in this repository for example code for processing endpoints.</p>
-<p>&lt;a id=“extending-core-library”&gt;&lt;/a&gt;</p>
-<h3><a id="Extending_the_Core_Library_859"></a>Extending the Core Library</h3>
-<p>This repository contains an example class for extending the SDKless class, called MySDKless. It is intended to be used to support API requirements that cannot be handled in configuration files. Some examples are…</p>
+<p><a id="extending-core-library"></a></p>
+<h3>Extending the Core Library</h3>
+<p>This repository contains an example class for extending the SDKless class, called MySDKless. It is intended to be used to support API requirements that cannot be handled in configuration files. Some examples are...</p>
 <ul>
 <li>Concatenating first and last name when the API expects a full name</li>
 <li>Splitting full name into first and last name when your application requires them separated but the API response has them together</li>
 <li>Concatenating paging parameters into one parameter when required by the API</li>
 <li>Adding a required api key to cursor paging uris, when those uris returned by the API do not include them</li>
-<li>Remove id prefixes when then the API returns them in a format like “prefix:id” but requires only the id for other calls</li>
+<li>Remove id prefixes when then the API returns them in a format like "prefix:id" but requires only the id for other calls</li>
 </ul>
-
-</body></html>
