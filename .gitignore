@@ -1,1 +1,2 @@
 implementations/django/venv/
+*.pyc
