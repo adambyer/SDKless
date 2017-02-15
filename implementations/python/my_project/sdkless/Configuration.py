@@ -194,7 +194,7 @@ class Configuration(object):
 			self._apply_endpoint_parameter_maps(endpoint_vars['set'])
 			self._apply_endpoint_set(endpoint_vars['set'])
 
-		# merge must be done last to allow for resetting merge values only
+		# store unmerged config before merging to allow for resetting merge values when multiple api calls are made on the same request
 		self._store_unmerged()
 
 		if endpoint_vars.get('merge'):
@@ -220,10 +220,13 @@ class Configuration(object):
 
 		return True
 
-	# allows for multiple endpoint calls on same page load
+	# allows for multiple endpoint calls on same request (set vars don't need to be stored; can always be overwritten)
 	def reset_to_unmerged(self):
-		self.settings = self._settings_unmerged
-		self.settings_custom = self._settings_custom_unmerged
+		if self._settings_unmerged:
+			self.settings = self._settings_unmerged
+
+		if self._settings_custom_unmerged:
+			self.settings_custom = self._settings_custom_unmerged
 
 	def make_uri(self, uri):
 		base_uri = self.settings['base_uri']

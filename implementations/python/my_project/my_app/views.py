@@ -52,15 +52,16 @@ def index(request):
 
 		local_vars = TEST_ACCOUNTS[selected_api].get('local')
 
-		# try:
-		sdkless = MySDKless(selected_api, global_vars);
-		output = sdkless.go(selected_endpoint, endpoint_vars, local_vars)
-		config = sdkless.config.settings
-		custom_config = sdkless.config.settings_custom
-		responses = sdkless.request.responses
-		# except Exception as e:
-		# 	error = repr(e)
+		try:
+			sdkless = MySDKless(selected_api, global_vars);
+			output = sdkless.go(selected_endpoint, endpoint_vars, local_vars)
+			config = sdkless.config.settings
+			custom_config = sdkless.config.settings_custom
+			responses = sdkless.request.responses
+		except Exception as e:
+			error = repr(e)
 	
+	# using list of tuples to retain order
 	sdkless_vars = [
 		('CONFIG', json.dumps(config)),
 		('CUSTOM CONFIG', json.dumps(custom_config)),
@@ -117,27 +118,27 @@ def auth(request):
 
 	if do_auth:
 		while not done:
-			# try:
-			output = sdkless.authenticate(step_id, params)
-			step_id = output.get('step_id')
-			done = output.get('done')
-			params = output.get('params')
-			redirect_uri = output.get('redirect')
+			try:
+				output = sdkless.authenticate(step_id, params)
+				step_id = output.get('step_id')
+				done = output.get('done')
+				params = output.get('params')
+				redirect_uri = output.get('redirect')
 
-			if done:
+				if done:
+					break
+
+				step_params[str(step_id)] = params
+				step_outputs[str(step_id)] = output
+				step_responses[str(step_id)] = sdkless.request.responses
+
+				if redirect_uri:
+					done = True
+					return redirect(redirect_uri)
+					break
+			except Exception as e:
+				error = str(e)
 				break
-
-			step_params[str(step_id)] = params
-			step_outputs[str(step_id)] = output
-			step_responses[str(step_id)] = sdkless.request.responses
-
-			if redirect_uri:
-				done = True
-				return redirect(redirect_uri)
-				break
-			# except Exception as e:
-			# 	error = str(e)
-			# 	break
 
 			step_id += 1
 

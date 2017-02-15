@@ -111,6 +111,8 @@ class SDKless(object):
 			raise Exception('invalid step type')
 
 	def go(self, endpoint_name, endpoint_vars = {}, local_vars = {}):
+		self.config.reset_to_unmerged()
+		
 		if isinstance(local_vars, dict):
 			self.local_vars = local_vars
 
@@ -182,7 +184,6 @@ class SDKless(object):
 					elif filter['return_type'] == '!boolean':
 						return not match_found
 
-		self.config.reset_to_unmerged()
 		return output
 
 	def _process_prerequisites(self):

@@ -167,21 +167,21 @@ class Request(object):
 
 	# returns request object
 	def _go(self, auth_user, headers, data, time_limit):
-		print('*** uri')
-		print(self.uri)
-		print('*** method')
-		print(self._config.method)
-		print('*** headers variable')
-		print(headers)
-		print('*** data')
-		print(data)
-		print('*** time_limit')
-		print(time_limit)
-		print('*** auth_user')
-		print(auth_user)
+		# print('*** uri')
+		# print(self.uri)
+		# print('*** method')
+		# print(self._config.method)
+		# print('*** headers variable')
+		# print(headers)
+		# print('*** data')
+		# print(data)
+		# print('*** time_limit')
+		# print(time_limit)
+		# print('*** auth_user')
+		# print(auth_user)
 
-		print(self._config.get_endpoint_setting('request_options'))
-		# try:
+		# print(self._config.get_endpoint_setting('request_options'))
+
 		if self._config.method == 'post':
 			response = requests_lib.post(self.uri, data=data, headers=headers, timeout=time_limit, auth=auth_user)
 		elif self._config.method == 'put':
@@ -199,21 +199,17 @@ class Request(object):
 				prepped.headers[key] = headers[key]
 
 			response = s.send(prepped, timeout=time_limit)
-		# except Exception as e:
-		# 	print('*** Exception')
-		# 	print(repr(e))
-			# raise Exception('request error: ' + str(e))
 
 		self.last_status_code = response.status_code
 
-		print('*** headers')
-		print(response.request.headers)
-		print('*** status_code')
-		print(response.status_code)
-		print('*** response text')
-		print(response.text)
-		print('*** response headers')
-		print(response.headers)
+		# print('*** headers')
+		# print(response.request.headers)
+		# print('*** status_code')
+		# print(response.status_code)
+		# print('*** response text')
+		# print(response.text)
+		# print('*** response headers')
+		# print(response.headers)
 
 		return response
 
