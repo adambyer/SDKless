@@ -4,8 +4,8 @@ import collections
 from django.shortcuts import redirect, render
 #
 from test_accounts import TEST_ACCOUNTS
-from sdkless.SDKless import SDKless
-from my_app.MySDKless import MySDKless
+from sdkless.sdkless import SDKless
+from my_app.my_sdkless import MySDKless
 
 def index(request):
 	test_accounts = collections.OrderedDict(sorted(TEST_ACCOUNTS.items()))

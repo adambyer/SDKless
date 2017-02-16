@@ -1,4 +1,4 @@
-from sdkless.SDKless import SDKless
+from sdkless.sdkless import SDKless
 
 class MySDKless(SDKless):
 

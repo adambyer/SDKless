@@ -4,10 +4,10 @@ import tempfile
 import os
 import copy
 #
-from sdkless.Utilities import Utilities
-from sdkless.Configuration import Configuration
-from sdkless.Authentication import Authentication
-from sdkless.Request import Request
+from utilities import Utilities
+from configuration import Configuration
+from authentication import Authentication
+from request import Request
 
 class SDKless(object):
 
@@ -111,8 +111,6 @@ class SDKless(object):
 			raise Exception('invalid step type')
 
 	def go(self, endpoint_name, endpoint_vars = {}, local_vars = {}):
-		self.config.reset_to_unmerged()
-		
 		if isinstance(local_vars, dict):
 			self.local_vars = local_vars
 

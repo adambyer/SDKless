@@ -5,8 +5,8 @@ import requests as requests_lib
 from requests import Request as RequestsRequest, Session
 from urlparse import parse_qs
 #
-from sdkless.Utilities import Utilities
-from sdkless.Output import Output
+from utilities import Utilities
+from output import Output
 
 class Request(object):
 

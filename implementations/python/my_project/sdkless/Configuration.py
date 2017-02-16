@@ -1,7 +1,7 @@
 import json
 import copy
 #
-from sdkless.Utilities import Utilities
+from utilities import Utilities
 # require_once 'Exception.php'
 
 class Configuration(object):
@@ -16,8 +16,6 @@ class Configuration(object):
 
 		self._merge_open = merge_open
 		self._merge_close = merge_close
-		self._settings_unmerged = None
-		self._settings_custom_unmerged = None
 
 	def setup(self):
 		try:
@@ -194,9 +192,6 @@ class Configuration(object):
 			self._apply_endpoint_parameter_maps(endpoint_vars['set'])
 			self._apply_endpoint_set(endpoint_vars['set'])
 
-		# store unmerged config before merging to allow for resetting merge values when multiple api calls are made on the same request
-		self._store_unmerged()
-
 		if endpoint_vars.get('merge'):
 			settings = json.dumps(self.settings)
 
@@ -219,14 +214,6 @@ class Configuration(object):
 			return False
 
 		return True
-
-	# allows for multiple endpoint calls on same request (set vars don't need to be stored; can always be overwritten)
-	def reset_to_unmerged(self):
-		if self._settings_unmerged:
-			self.settings = self._settings_unmerged
-
-		if self._settings_custom_unmerged:
-			self.settings_custom = self._settings_custom_unmerged
 
 	def make_uri(self, uri):
 		base_uri = self.settings['base_uri']
@@ -383,11 +370,6 @@ class Configuration(object):
 				self._apply_endpoint_set(value, keys)
 			else:
 				self.set_endpoint_setting(keys + [key], value)
-
-	# call before merging to allow reset
-	def _store_unmerged(self):
-		self._settings_unmerged = self.settings
-		self._settings_custom_unmerged = self.settings_custom
 
 	# recursive
 	def _clean_endpoint_setting(self, setting):

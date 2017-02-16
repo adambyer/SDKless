@@ -7,8 +7,7 @@ import copy
 import time
 from random import random
 #
-from sdkless.Utilities import Utilities
-# require_once 'Exception.php';
+from utilities import Utilities
 
 class Authentication(object):
 
@@ -84,11 +83,8 @@ class Authentication(object):
 
 		oauth_header_dict['oauth_signature'] = 'oauth_signature="{}"'.format(urllib.quote(oauth_signature, safe=''))
 		oauth_header_ordered = [t[1] for t in sorted(oauth_header_dict.items())]
-		# print("*** SDKless:Authentication::setup_oauth_header:signature_params:")
-		# print(oauth_header_ordered)
 		global_vars['merge']['OAUTH-HEADER-PARAMS'] = ', '.join(oauth_header_ordered)
-		# print("*** SDKless:Authentication::setup_oauth_header:OAUTH-HEADER-PARAMS:")
-		# print(global_vars['merge']['OAUTH-HEADER-PARAMS'])
+
 		self._config.apply_global_vars(global_vars);
 
 	def _get_oauth_params(self, oauth_nonce, oauth_timestamp):

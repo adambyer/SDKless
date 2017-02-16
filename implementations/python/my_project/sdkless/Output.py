@@ -1,6 +1,6 @@
 import copy
 #
-from sdkless.Utilities import Utilities
+from utilities import Utilities
 
 class Output(object):
 
