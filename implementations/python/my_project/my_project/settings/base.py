@@ -25,7 +25,7 @@ SECRET_KEY = '%v*j2=nmb)@1zadot3$8tus&*v_il4g@&nbqdx3#qqe2v64r46'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.semisweetsoftware.com', '.herokuapp.com']
 
 
 # Application definition
@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'sdkless',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     # 'django.middleware.security.SecurityMiddleware',
     # 'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,7 +77,13 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {}
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'HOST': '127.0.0.1',
+    #     'NAME': 'sdkless',
+    # }
+}
 
 
 # Password validation
@@ -111,9 +119,10 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 # SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# INTERNAL_IPS is used by debug_toolbar which only shows when the current IP matches
+INTERNAL_IPS = ['127.0.0.1']

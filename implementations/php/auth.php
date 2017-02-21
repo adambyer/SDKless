@@ -1,7 +1,7 @@
 <?php
-session_start();
 require_once 'MySDKless.php';
 require_once 'test_accounts.php';
+require_once 'utils.php';
 
 $do_auth = false;
 $params = array();
@@ -49,14 +49,34 @@ if ($do_auth) {
 	} while (!$done);
 }
 
+$config = $sdkless->config->settings;
+$custom_config = $sdkless->config->settings_custom;
+$global_vars = $sdkless->global_vars;
+$endpoint_vars = $sdkless->endpoint_vars;
+$curl_opts = $sdkless->response->curl_opts;
+$curl_info = $sdkless->response->curl_info;
+$responses = $sdkless->response->responses;
+
+// obfuscating potentially sensitive data for demos
+if (DEBUG) {
+	obfuscate($config);
+	obfuscate($custom_config);
+	obfuscate($global_vars);
+	obfuscate($endpoint_vars);
+	obfuscate($curl_opts);
+	obfuscate($curl_info);
+	obfuscate($responses);
+	obfuscate($output);
+}
+
 $sdkless_vars = array(
-	'CONFIG' => 'config->settings',
-	'CUSTOM CONFIG' => 'config->settings_custom',
-	'GLOBAL VARS' => 'global_vars',
-	'ENDPOINT VARS' => 'endpoint_vars',
-	'CURL OPTS' => 'response->curl_opts',
-	'CURL INFO' => 'response->curl_info',
-	'RESPONSES' => 'response->responses',
+	'CONFIG' => $config,
+	'CUSTOM CONFIG' => $custom_config,
+	'GLOBAL VARS' => $global_vars,
+	'ENDPOINT VARS' => $endpoint_vars,
+	'CURL OPTS' => $curl_opts,
+	'CURL INFO' => $curl_info,
+	'RESPONSES' => $responses,
 );
 ?>
 <html>
@@ -92,24 +112,10 @@ $sdkless_vars = array(
 		<?php 
 		if (!empty($sdkless)) {
 			foreach ($sdkless_vars as $key => $var) {
-				$subvar = null;
-
-				if (strpos($var, '->') !== false) {
-					$vars = explode('->', $var);
-					$var = $vars[0];
-					$subvar = $vars[1];
-				}
-
 		?>
 				<div>
 					<h4><?php echo $key; ?></h4>
-					<pre><?php
-					if (empty($subvar))
-						print_r($sdkless->$var);
-					else
-						print_r($sdkless->$var->$subvar)
-					?>
-					</pre>
+					<pre><?php print_r($var); ?></pre>
 				</div>
 		<?php
 			}
