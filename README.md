@@ -1,12 +1,12 @@
-#SDKless#
+# SDKless
 
-###NOTE: This repository contains the documentation for the SDKless specification as well as demo implementations in various programming languages.###
+### NOTE: This repository contains the documentation for the SDKless specification as well as demo implementations in various programming languages.
 
-####The following implementation libraries are also available:####
+#### The following implementation libraries are also available:
  - <a href="https://github.com/adambyer/SDKless-python">Python</a>
  - <a href="https://github.com/adambyer/SDKless-php">PHP</a>
 
-##Introduction##
+## Introduction
 
 SDKless is a specification for describing the usage requirements of APIs. The goal of SDKless is to allow developers to use one code library to consume all APIs, rather than incorporating a separate SDK for each API. This will help speed up development time, allow for cleaner code, make troubleshooting easier, and reduce the number of code files required by your application.
 
